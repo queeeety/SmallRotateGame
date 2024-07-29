@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Frame 1.svg",
+      "filename" : "one3.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "one.svg",
+      "filename" : "one2.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "one 1.svg",
+      "filename" : "one.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

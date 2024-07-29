@@ -7,77 +7,84 @@
 
 import Foundation
 import SwiftUI
+import SwiftSVG
 
 class LineObject: ObservableObject {
-    @Published var left: Bool = false
-    @Published var right: Bool = false
-    @Published var down: Bool = false
-    @Published var up: Bool = false
-    @Published var angle: Angle = .zero
-    let picture: String
-    let number: Int
+    @Published var directions: [String] = []
 
-    init(number: Int) {
-        self.number = number
+    @Published var angle: Angle = .degrees(0)
+    let fgcolor: Color
+    let picture: String
+    let id: Int
+    var number: Int = 0
+
+    init(number: Int, color: Color) {
+        self.fgcolor = color 
+        self.id = number
         switch number {
         case 1:
             self.picture = "one"
-            self.up = true
+            self.directions = ["down"]
         case 2:
             self.picture = "line"
-            self.left = true
-            self.right = true
+            self.directions = ["up", "down"]
         case 3:
             self.picture = "corner"
-            self.up = true
-            self.right = true
+            self.directions = ["down", "right"]
         case 4:
             self.picture = "t"
-            self.up = true
-            self.left = true
-            self.right = true
+            self.directions = ["up", "down", "right"]
         case 5:
             self.picture = "x"
-            self.up = true
-            self.left = true
-            self.right = true
-            self.down = true
+            self.directions = ["up", "left", "down", "right"]
         default:
             self.picture = "0"
         }
+        self.number = self.directions.count
     }
 
-    func rotate() {
-        angle += .degrees(90)
-        // Rotate properties
-        let tempRight = self.up
-        let tempDown = self.right
-        let tempLeft = self.down
-        let tempUp = self.left
-        self.up = tempLeft
-        self.right = tempUp
-        self.down = tempRight
-        self.left = tempDown
+    func rotate(completion: @escaping () -> Void) {
+        withAnimation {
+            angle += .degrees(90)
+            let transitionMap = ["up": "right", "down": "left", "left": "up", "right": "down"]
+            let newDirections = directions.map { transitionMap[$0] ?? $0 }
+            directions = newDirections
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // assuming the animation takes 0.3 seconds
+            completion()
+        }
+    }
+
+    func startRandomRotate() {
+        let randomNumber = Int.random(in: 0...3)
+        for _ in 0...randomNumber {
+            rotate() {}
+        }
     }
 }
 
-struct LineObj: View{
+struct LineObj: View {
+    @ObservedObject var viewModel: LineObject
+    var onTap: (() -> Void)?
     
-    @StateObject private var viewModel: LineObject
+    init(viewModel: LineObject, onTap: (() -> Void)? = nil) {
+        self.viewModel = viewModel
+        self.onTap = onTap
+    }
 
-     init(number: Int) {
-         _viewModel = StateObject(wrappedValue: LineObject(number: number))
-     }
+    var body: some View {
+        Button(action: {
+            viewModel.rotate {
+                onTap?()
+            }
+        }) {
 
-     var body: some View {
-         Button(action: {
-             viewModel.rotate()
-         }) {
-             Image(viewModel.picture)
-                 .resizable()
-                 .scaledToFit()
-                 .rotationEffect(viewModel.angle)
-         }
-     }
-
+            Image(viewModel.picture)
+                .resizable()
+                .rotationEffect(viewModel.angle)
+                .foregroundColor(viewModel.fgcolor)
+            
+        }
+    }
 }
+

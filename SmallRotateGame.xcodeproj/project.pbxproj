@@ -6,6 +6,10 @@
 	objectVersion = 70;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = C926E85D2C57CE7300C14176 /* SwiftSVG */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		C926E8402C56BC7000C14176 /* SmallRotateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallRotateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -19,6 +23,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +66,7 @@
 			);
 			name = SmallRotateGame;
 			packageProductDependencies = (
+				C926E85D2C57CE7300C14176 /* SwiftSVG */,
 			);
 			productName = SmallRotateGame;
 			productReference = C926E8402C56BC7000C14176 /* SmallRotateGame.app */;
@@ -90,6 +96,9 @@
 				Base,
 			);
 			mainGroup = C926E8372C56BC7000C14176;
+			packageReferences = (
+				C926E85C2C57CE7300C14176 /* XCRemoteSwiftPackageReference "SwiftSVG" */,
+			);
 			productRefGroup = C926E8412C56BC7000C14176 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -319,6 +328,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C926E85C2C57CE7300C14176 /* XCRemoteSwiftPackageReference "SwiftSVG" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mchoe/SwiftSVG";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C926E85D2C57CE7300C14176 /* SwiftSVG */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C926E85C2C57CE7300C14176 /* XCRemoteSwiftPackageReference "SwiftSVG" */;
+			productName = SwiftSVG;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C926E8382C56BC7000C14176 /* Project object */;
 }
