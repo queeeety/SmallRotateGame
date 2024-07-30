@@ -14,10 +14,10 @@ class LineObject: ObservableObject {
 
     @Published var angle: Angle = .degrees(0)
     let fgcolor: Color
-    let picture: String
+    var picture: String
     let id: Int
     var number: Int = 0
-
+    
     init(number: Int, color: Color) {
         self.fgcolor = color 
         self.id = number
@@ -41,6 +41,7 @@ class LineObject: ObservableObject {
             self.picture = "0"
         }
         self.number = self.directions.count
+        startRandomRotate()
     }
 
     func rotate(completion: @escaping () -> Void) {
@@ -61,6 +62,13 @@ class LineObject: ObservableObject {
             rotate() {}
         }
     }
+    
+//    func changeObj(num: Int){
+//        let numberDict = [1:"one", 2:"line", 3:"corner", 4:"t", 5:"x", 0:"0"]
+//
+//        self.picture = numberDict[num] ?? "0"
+//        self.
+//    }
 }
 
 struct LineObj: View {
@@ -88,3 +96,50 @@ struct LineObj: View {
     }
 }
 
+
+func performCheckCompleteness(elements: [[LineObject]]) -> Bool {
+    let rows = elements.count
+    let cols = elements[0].count
+
+    let oppositeDirection: [String: String] = [
+        "up": "down",
+        "down": "up",
+        "left": "right",
+        "right": "left"
+    ]
+
+    for i in 0..<rows {
+        for j in 0..<cols {
+            let currentDirections = elements[i][j].directions
+            for direction in currentDirections {
+                var hasNeighbor = false
+
+                switch direction {
+                case "up":
+                    if i > 0 {
+                        hasNeighbor = elements[i-1][j].directions.contains(oppositeDirection[direction]!)
+                    }
+                case "down":
+                    if i < rows - 1 {
+                        hasNeighbor = elements[i+1][j].directions.contains(oppositeDirection[direction]!)
+                    }
+                case "left":
+                    if j > 0 {
+                        hasNeighbor = elements[i][j-1].directions.contains(oppositeDirection[direction]!)
+                    }
+                case "right":
+                    if j < cols - 1 {
+                        hasNeighbor = elements[i][j+1].directions.contains(oppositeDirection[direction]!)
+                    }
+                default:
+                    break
+                }
+
+                if !hasNeighbor {
+                    return false
+                }
+            }
+        }
+    }
+    return true
+}

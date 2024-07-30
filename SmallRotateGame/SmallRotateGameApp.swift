@@ -11,7 +11,7 @@ import SwiftUI
 struct SmallRotateGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BuildYourLevel()
         }
     }
 }
