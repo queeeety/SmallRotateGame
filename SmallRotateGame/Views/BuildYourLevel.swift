@@ -177,7 +177,7 @@ struct BuildYourLevel: View {
                 .padding([.trailing, .leading]) // actionButtons
                 
                 Button(){
-                    saveLevel(Level(map: map), to: "PlayerLevels")
+                    saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
                     } label:{
                         ZStack{
                             RoundedRectangle(cornerRadius: 30)

@@ -1,44 +1,61 @@
-//
-//  SceneBuilder.swift
-//  SmallRotateGame
-//
-//  Created by Тимофій Безверхий on 29.07.2024.
-//
-
 import SwiftUI
 
 struct SceneBuilder: View {
-    let map = startMap
-
+    @State var map: [[Int]] = standartLevels[CurrentLevel - 1].map
     @State private var elementsMap: [[LineObject]] = []
-
+    @State var colorFalse = Color.red
+    @State var colorTrue = Color.green
     @State var bgcolor = Color.red
     @State var isCorrect = false
+    @State var isRegularPlay: Bool
+    @State var isNextLevel: Bool = false
+    @State var isAlert: Bool = false
+    @State var isProcessing: Bool = false  // Новий прапор для блокування дій
+    let screenWidth = Int(UIScreen.main.bounds.width - 20)
 
     var body: some View {
         ZStack {
             Color(bgcolor)
                 .ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                ForEach(elementsMap.indices, id: \.self) { i in
-                    HStack(spacing: 0) {
-                        ForEach(elementsMap[i].indices, id: \.self) { j in
-                            LineObj(viewModel: elementsMap[i][j]) {
-                                checkCompleteness()
+            if !isNextLevel {
+                VStack(spacing: 0) {
+                    ForEach(elementsMap.indices, id: \.self) { i in
+                        HStack(spacing: 0) {
+                            ForEach(elementsMap[i].indices, id: \.self) { j in
+                                LineObj(viewModel: elementsMap[i][j]) {
+                                    if !isProcessing {
+                                        checkCompleteness()
+                                    }
+                                }
+                                .aspectRatio(1, contentMode: .fit)
                             }
                         }
                     }
                 }
-            }
-            .frame(width: CGFloat(map[0].count * 50), height: CGFloat(map.count * 50))
-            .onAppear {
-                self.elementsMap = generateElementsMap()
+                .frame(minWidth: CGFloat(screenWidth), maxWidth: CGFloat(screenWidth), idealHeight: CGFloat(75 * map.count))
+                .onAppear {
+                    self.elementsMap = generateElementsMap()
+                }
+                .transition(.opacity)
+            } else {
+                Text("\(CurrentLevel)")
+                    .font(.system(size: 150))
+                    .foregroundColor(.white)
+                    .transition(.opacity)
             }
         }
-//        .alert(isPresented: $isCorrect) {
-//            Alert(title: Text("Correct!"), message: Text("You are right!"), dismissButton: .default(Text("OK")))
-//        }
+        .alert("Вітаю!", isPresented: $isAlert) {
+            Button("Почати наново", role: .cancel) {
+                isNextLevel = false
+                CurrentLevel = 1
+                saveCurrentNumber(CurrentLevel)
+                map = standartLevels[CurrentLevel - 1].map
+                self.elementsMap = generateElementsMap()
+            }
+        } message: {
+            Text("Ви пройшли гру!")
+        }
     }
 
     func generateElementsMap() -> [[LineObject]] {
@@ -50,63 +67,42 @@ struct SceneBuilder: View {
     }
 
     func checkCompleteness() {
+        guard !isProcessing else { return } // Перевірка, чи не виконується зараз дія
+        isProcessing = true // Блокуємо дії
+
         let isComplete = performCheckCompleteness(elements: elementsMap)
-        print("Completeness check: \(isComplete)")
         self.isCorrect = isComplete
-        withAnimation{
-            self.bgcolor = isComplete ? .green : .red
+        withAnimation {
+            self.bgcolor = isComplete ? colorTrue : colorFalse
         }
-    }
 
-    func performCheckCompleteness(elements: [[LineObject]]) -> Bool {
-        let rows = elements.count
-        let cols = elements[0].count
-
-        let oppositeDirection: [String: String] = [
-            "up": "down",
-            "down": "up",
-            "left": "right",
-            "right": "left"
-        ]
-
-        for i in 0..<rows {
-            for j in 0..<cols {
-                let currentDirections = elements[i][j].directions
-                for direction in currentDirections {
-                    var hasNeighbor = false
-
-                    switch direction {
-                    case "up":
-                        if i > 0 {
-                            hasNeighbor = elements[i-1][j].directions.contains(oppositeDirection[direction]!)
-                        }
-                    case "down":
-                        if i < rows - 1 {
-                            hasNeighbor = elements[i+1][j].directions.contains(oppositeDirection[direction]!)
-                        }
-                    case "left":
-                        if j > 0 {
-                            hasNeighbor = elements[i][j-1].directions.contains(oppositeDirection[direction]!)
-                        }
-                    case "right":
-                        if j < cols - 1 {
-                            hasNeighbor = elements[i][j+1].directions.contains(oppositeDirection[direction]!)
-                        }
-                    default:
-                        break
+        if isComplete {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation {
+                    isNextLevel = isComplete
+                }
+                if (standartLevels.count > CurrentLevel) {
+                    CurrentLevel += 1
+                    saveCurrentNumber(CurrentLevel)
+                    map = standartLevels[CurrentLevel - 1].map
+                    self.elementsMap = generateElementsMap()
+                } else {
+                    isAlert = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        bgcolor = colorFalse
+                        isNextLevel = false
                     }
-
-                    if !hasNeighbor {
-                        print("Element at (\(i), \(j)) with direction \(direction) has no neighbor")
-                        return false
-                    }
+                    isProcessing = false // Дозволяємо дії знову
                 }
             }
+        } else {
+            isProcessing = false // Якщо не завершено, дозволяємо дії знову
         }
-        return true
     }
 }
 
 #Preview {
-    SceneBuilder()
+    SceneBuilder(isRegularPlay: true)
 }

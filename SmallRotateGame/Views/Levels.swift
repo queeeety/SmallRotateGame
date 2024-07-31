@@ -10,6 +10,7 @@ import SwiftCSV
 
 public struct Level: Codable{
     let map : [[Int]]
+    var isSolved: Bool
 }
 
 
@@ -43,7 +44,7 @@ func getDocumentsDirectory() -> URL {
     return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 }
 
-func loadLevels(from fileName: String) -> [Level]? {
+func loadLevels(from fileName: String) -> [Level] {
     let url = Bundle.main.url(forResource: "levels", withExtension: "json") ?? getDocumentsDirectory().appendingPathComponent(fileName).appendingPathExtension("json")
     do {
         let data = try Data(contentsOf: url)
@@ -52,35 +53,37 @@ func loadLevels(from fileName: String) -> [Level]? {
         return levels
     } catch {
         print("Помилка при завантаженні даних: \(error)")
-        return nil
+        return [Level(map: [], isSolved: false)]
     }
 }
 
 
 func printLevelsAdded(){
     let l = loadLevels (from: "levels")
-    if let l = l {
+    if l.count > 1 {
         for level in l {
             print(level.map)
         }
     }
 }
 
+func saveCurrentNumber(_ number: Int) {
+    
+    let url = Bundle.main.url(forResource: "CurrentLevel", withExtension: "json") ?? getDocumentsDirectory().appendingPathComponent("CurrentLevel").appendingPathExtension("json")
+    let newData = try! JSONEncoder().encode(number)
+    try? newData.write(to: url)
+    print("Done \(number) to \(url)")
+}
 
-
-
-
-
-
-
-
-public let startMap2 =  [[0, 0, 1, 1, 0, 0],
-                [0, 0, 2, 2, 0, 0],
-                [0, 0, 3, 5, 1, 0],
-                [0, 0, 0, 2, 0, 0],
-                [3, 3, 0, 4, 3, 0],
-                [3, 3, 0, 1, 1, 0],
-                [0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0]]
-
-
+func getCurrentNumber() -> Int {
+    let url = Bundle.main.url(forResource: "CurrentLevel", withExtension: "json", subdirectory: nil, localization: nil) ?? getDocumentsDirectory().appendingPathComponent("CurrentLevel").appendingPathExtension("json")
+    do {
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        let number = try decoder.decode(Int.self, from: data)
+        return number
+    }
+    catch {
+        return 0
+    }
+}

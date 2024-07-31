@@ -6,21 +6,21 @@
 //
 
 import SwiftUI
-
 struct LevelsView: View {
-    @State var levels = loadLevels(from: "levels.json")
+    @State private var playerLevels = loadLevels(from: "PlayerLevels")
+
     var body: some View {
         ZStack{
             RadialGradient(colors: [.purple,.indigo], center: .top, startRadius: 10, endRadius: 500)
                 .ignoresSafeArea()
-            if (levels == nil){
+            if (standartLevels.count <= 1){
                 Text("Жодного рівня немає")
                     .font(.system(size: 20))
                     .foregroundStyle(Color.white)
                 
             }else{
                 ScrollView{
-                    ForEach(levels!.indices, id: \.self){ level in
+                    ForEach(standartLevels.indices, id: \.self){ level in
                         ZStack{
                             RoundedRectangle(cornerRadius: 20)
                                 .frame(height: 80)
@@ -30,7 +30,7 @@ struct LevelsView: View {
                         }
                     }
                 }.onAppear{
-                    levels = loadLevels(from: "levels.json")
+                    playerLevels = loadLevels(from: "PlayerLevels")
                 }
             }
         }
