@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Frame 8.svg",
+      "filename" : "corner2.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "corner.svg",
+      "filename" : "corner2 1.svg",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "corner 1.svg",
+      "filename" : "corner2 2.svg",
       "idiom" : "universal",
       "scale" : "3x"
     }

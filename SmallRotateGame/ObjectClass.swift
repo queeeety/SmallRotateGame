@@ -17,6 +17,7 @@ class LineObject: ObservableObject {
     var picture: String
     let id: Int
     var number: Int = 0
+    var UIPicture : UIView = UIView()
     
     init(number: Int, color: Color) {
         self.fgcolor = color 
@@ -40,6 +41,8 @@ class LineObject: ObservableObject {
         default:
             self.picture = "0"
         }
+//        changeSVGColor(assetName: self.picture, color: UIColor(self.fgcolor))
+        
         self.number = self.directions.count
         startRandomRotate()
     }
@@ -63,11 +66,25 @@ class LineObject: ObservableObject {
         }
     }
     
-//    func changeObj(num: Int){
-//        let numberDict = [1:"one", 2:"line", 3:"corner", 4:"t", 5:"x", 0:"0"]
-//
-//        self.picture = numberDict[num] ?? "0"
-//        self.
+//    func changeSVGColor(assetName: String, color: UIColor) {
+//        // Завантаження SVG з assets
+//        if let url = Bundle.main.url(forResource: assetName, withExtension: "svg") {// Створення UIView для відображення SVG
+//            let svgView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//            
+//            // Зміна кольору та рендеринг SVG
+//            let svgLayer = CALayer(svgURL: url) { layer in
+//                layer.fillColor = color.cgColor
+//            }
+//            svgView.layer.addSublayer(svgLayer)
+//            svgLayer.frame = svgView.bounds
+//            
+//            self.UIPicture = svgView
+//        }
+//        else {
+//            print("Не вдалося знайти SVG файл з назвою \(assetName) у assets")
+//        }
+
+        
 //    }
 }
 
@@ -86,7 +103,6 @@ struct LineObj: View {
                 onTap?()
             }
         }) {
-
             Image(viewModel.picture)
                 .resizable()
                 .rotationEffect(viewModel.angle)

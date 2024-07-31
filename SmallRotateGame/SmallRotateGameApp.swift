@@ -11,8 +11,15 @@ import SwiftUI
 struct SmallRotateGameApp: App {
     var body: some Scene {
         WindowGroup {
-            BuildYourLevel()
+            HomeView()
+                .onAppear{
+                    if let fileURL = Bundle.main.url(forResource: "levels", withExtension: "json") {
+                        print("File URL: \(fileURL)")
+                    }
+                    printLevelsAdded()
+                }
         }
+        
     }
 }
 

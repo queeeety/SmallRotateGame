@@ -7,11 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C912640F2C59A4320082BDF8 /* levels.csv in Resources */ = {isa = PBXBuildFile; fileRef = C912640D2C59A4270082BDF8 /* levels.csv */; };
 		C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = C926E85D2C57CE7300C14176 /* SwiftSVG */; };
+		C960F3C12C59A13B009A628A /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = C960F3C02C59A13B009A628A /* SwiftCSV */; };
+		C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5CD2C5AB12B00B97AEF /* levels.json */; };
+		C9E7B5D42C5AB90900B97AEF /* PlayerLevels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C912640D2C59A4270082BDF8 /* levels.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = levels.csv; sourceTree = "<group>"; };
 		C926E8402C56BC7000C14176 /* SmallRotateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallRotateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9E7B5CD2C5AB12B00B97AEF /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = levels.json; sourceTree = "<group>"; };
+		C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PlayerLevels.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -24,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */,
+				C960F3C12C59A13B009A628A /* SwiftCSV in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +41,9 @@
 		C926E8372C56BC7000C14176 = {
 			isa = PBXGroup;
 			children = (
+				C9E7B5CD2C5AB12B00B97AEF /* levels.json */,
+				C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */,
+				C912640D2C59A4270082BDF8 /* levels.csv */,
 				C926E8422C56BC7000C14176 /* SmallRotateGame */,
 				C926E8412C56BC7000C14176 /* Products */,
 			);
@@ -67,6 +78,7 @@
 			name = SmallRotateGame;
 			packageProductDependencies = (
 				C926E85D2C57CE7300C14176 /* SwiftSVG */,
+				C960F3C02C59A13B009A628A /* SwiftCSV */,
 			);
 			productName = SmallRotateGame;
 			productReference = C926E8402C56BC7000C14176 /* SmallRotateGame.app */;
@@ -79,6 +91,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					MainLevels,
+				);
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
@@ -98,6 +113,7 @@
 			mainGroup = C926E8372C56BC7000C14176;
 			packageReferences = (
 				C926E85C2C57CE7300C14176 /* XCRemoteSwiftPackageReference "SwiftSVG" */,
+				C960F3BF2C59A13B009A628A /* XCRemoteSwiftPackageReference "SwiftCSV" */,
 			);
 			productRefGroup = C926E8412C56BC7000C14176 /* Products */;
 			projectDirPath = "";
@@ -113,6 +129,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */,
+				C912640F2C59A4320082BDF8 /* levels.csv in Resources */,
+				C9E7B5D42C5AB90900B97AEF /* PlayerLevels.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +357,14 @@
 				kind = branch;
 			};
 		};
+		C960F3BF2C59A13B009A628A /* XCRemoteSwiftPackageReference "SwiftCSV" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swiftcsv/SwiftCSV";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -345,6 +372,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C926E85C2C57CE7300C14176 /* XCRemoteSwiftPackageReference "SwiftSVG" */;
 			productName = SwiftSVG;
+		};
+		C960F3C02C59A13B009A628A /* SwiftCSV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C960F3BF2C59A13B009A628A /* XCRemoteSwiftPackageReference "SwiftCSV" */;
+			productName = SwiftCSV;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
