@@ -17,17 +17,32 @@ struct BuildYourLevel: View {
     @State var isCorrect = false
     @State var changePoint = [Int]()
     @State var isButtonPushed = false
+    @State var isMainLevel = false
     let screenWidth = Int(UIScreen.main.bounds.width-20)
     var body: some View {
         ZStack {
             LinearGradient(colors: [bgcolor, .indigo], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             VStack {
-                Text("Побудуй свій рівень")
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                    .padding([.top, .bottom], 20)
+                HStack{
+                    Button{
+                        withAnimation{
+                            isMainLevel.toggle()
+                        }
+                    }label:{
+                        Image(systemName: "chevron.backward")
+                            .font(.title)
+                            .foregroundStyle(.indigo)
+                            .bold()
+                            .shadow(radius: 5)
+                    }
+                    Text("Побудуй свій рівень")
+                        .font(.largeTitle)
+                        .foregroundStyle(.white)
+                        .padding([.top, .bottom], 20)
+                }
                 Spacer()
+                
                 ScrollView{
                     VStack(spacing: 0.2) {
                         ForEach(elementsMap.indices, id: \.self) { i in
@@ -73,7 +88,7 @@ struct BuildYourLevel: View {
                                             }
                                         }
                                         .aspectRatio(1, contentMode: .fit)
-
+                                    
                                 }
                             }
                         }
@@ -90,7 +105,7 @@ struct BuildYourLevel: View {
                     }
                 } // мапа
                 .padding([.leading, .trailing], 10)
-
+                
                 Spacer()
                 
                 HStack(spacing: 10){
@@ -135,7 +150,7 @@ struct BuildYourLevel: View {
                             .opacity(0.5)
                             .foregroundStyle(.background)
                             .overlay(Image(systemName: "decrease.quotelevel").font(.largeTitle).rotationEffect(.degrees(90)))
-                            
+                        
                     }
                     
                     Button{
@@ -152,7 +167,7 @@ struct BuildYourLevel: View {
                             .opacity(0.5)
                             .foregroundStyle(.background)
                             .overlay(Image(systemName: "decrease.quotelevel").font(.largeTitle))
-                            
+                        
                     }
                     Spacer()
                     
@@ -171,27 +186,31 @@ struct BuildYourLevel: View {
                             .opacity(0.5)
                             .foregroundStyle(.background)
                             .overlay(Image(systemName: "xmark").font(.largeTitle).foregroundStyle(Color.red))
-                            
+                        
                     }
                 }
                 .padding([.trailing, .leading]) // actionButtons
                 
                 Button(){
-//                    saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
+                    //                    saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
                     print("{\"map\":\(map),\"isSolved\":false},")
-                    } label:{
-                        ZStack{
-                            RoundedRectangle(cornerRadius: 30)
-                                .foregroundColor(.white.opacity(0.5))
-                            Text("Зберегти рівень")
-                                .font(.title2)
-                        }
-                        .frame(height: 70)
-                        .padding(10)
+                } label:{
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 30)
+                            .foregroundColor(.white.opacity(0.5))
+                        Text("Зберегти рівень")
+                            .font(.title2)
                     }
-                    .disabled(!isCorrect)
-                
+                    .frame(height: 70)
+                    .padding(10)
+                }
+                .disabled(!isCorrect)
             }//VStack
+            
+            if isMainLevel{
+                HomeView()
+                    .transition(.slide)
+            }
         }
     }
     

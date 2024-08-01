@@ -9,15 +9,23 @@ import SwiftUI
 
 struct HomeView: View {
     @State var isGameScreen = false
-    
+    @State var isLevelsScreen = false
+    @State var isCreateLevelScreen = false
     var body: some View {
         ZStack{
             if isGameScreen{
                 SceneBuilder(isRegularPlay: true)
                     .transition(.opacity)
             }
+            else if isLevelsScreen {
+                LevelsView()
+                    .transition(.opacity)
+            }
+            else if isCreateLevelScreen {
+                BuildYourLevel()
+                    .transition(.opacity)
+            }
             else{
-                NavigationView{
                     ZStack{
                         RadialGradient(colors: [.purple,.indigo], center: .top, startRadius: 10, endRadius: 500)
                             .ignoresSafeArea()
@@ -43,8 +51,11 @@ struct HomeView: View {
                             Spacer()
                             HStack(alignment: .bottom){
                                 Spacer()
-                                NavigationLink(destination: LevelsView()){
-                                    
+                                Button{
+                                    withAnimation{
+                                        isLevelsScreen.toggle()
+                                    }
+                                }label:{
                                     VStack{
                                         Circle()
                                             .frame(minWidth: 50, idealWidth: 75, maxWidth: 80, minHeight: 50, idealHeight: 75, maxHeight: 80)
@@ -61,8 +72,11 @@ struct HomeView: View {
                                     
                                 }
                                 Spacer()
-                                
-                                NavigationLink(destination:BuildYourLevel()){
+                                Button{
+                                    withAnimation{
+                                        isCreateLevelScreen.toggle()
+                                    }
+                                }label:{
                                     VStack{
                                         Circle()
                                             .frame(minWidth: 50, idealWidth: 75, maxWidth: 80, minHeight: 50, idealHeight: 75, maxHeight: 80)
@@ -98,7 +112,6 @@ struct HomeView: View {
                             }
                         }
                     }
-                }//NavigationLink
             }
         }//ZStack
     }

@@ -13,10 +13,12 @@ public struct Level: Codable{
     var isSolved: Bool
 }
 
+func getDocumentsDirectory() -> URL {
+    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+}
 
 
-
-func saveLevel(_ level: Level, to fileName: String) {
+func saveLevel(_ level: Level, to fileName: String, numberOfLevelDone: Int = 0) {
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
     let url = Bundle.main.url(forResource: fileName, withExtension: "json") ?? getDocumentsDirectory().appendingPathComponent(fileName).appendingPathExtension("json")
@@ -40,9 +42,7 @@ func saveLevel(_ level: Level, to fileName: String) {
     }
 }
 
-func getDocumentsDirectory() -> URL {
-    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-}
+
 
 func loadLevels(from fileName: String) -> [Level] {
     let url = Bundle.main.url(forResource: "levels", withExtension: "json") ?? getDocumentsDirectory().appendingPathComponent(fileName).appendingPathExtension("json")
@@ -73,6 +73,7 @@ func saveCurrentNumber(_ number: Int) {
     let newData = try! JSONEncoder().encode(number)
     try? newData.write(to: url)
 //    print("Done \(number) to \(url)")
+    changeLevelReachability(to: "levels", numberOfLevelDone: number)
 }
 
 func getCurrentNumber() -> Int {
@@ -91,4 +92,27 @@ func getCurrentNumber() -> Int {
 
 func LiterallyPrintWhatIsSupposedToBeInTheFile(map:[[Int]]){
     print("{\"map\":\(map),\"isSolved\":false},")
+}
+
+func changeLevelReachability(to fileName: String, numberOfLevelDone: Int) {
+    let encoder = JSONEncoder()
+    let decoder = JSONDecoder()
+    let url = Bundle.main.url(forResource: fileName, withExtension: "json") ?? getDocumentsDirectory().appendingPathComponent(fileName).appendingPathExtension("json")
+    
+    // Ініціалізуємо порожній масив, який буде містити всі рівні
+    var levels = [Level]()
+    
+    // Спробуємо прочитати поточний вміст файлу
+    if let data = try? Data(contentsOf: url),
+       let existingLevels = try? decoder.decode([Level].self, from: data) {
+        levels = existingLevels
+    }
+    
+    levels[numberOfLevelDone].isSolved = true
+    
+    // Кодуємо оновлений масив рівнів
+    if let newData = try? encoder.encode(levels) {
+        try? newData.write(to: url)
+        print("Done to \(url)")
+    }
 }
