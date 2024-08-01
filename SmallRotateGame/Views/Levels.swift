@@ -72,7 +72,7 @@ func saveCurrentNumber(_ number: Int) {
     let url = Bundle.main.url(forResource: "CurrentLevel", withExtension: "json") ?? getDocumentsDirectory().appendingPathComponent("CurrentLevel").appendingPathExtension("json")
     let newData = try! JSONEncoder().encode(number)
     try? newData.write(to: url)
-    print("Done \(number) to \(url)")
+//    print("Done \(number) to \(url)")
 }
 
 func getCurrentNumber() -> Int {
@@ -86,4 +86,9 @@ func getCurrentNumber() -> Int {
     catch {
         return 0
     }
+}
+
+
+func LiterallyPrintWhatIsSupposedToBeInTheFile(map:[[Int]]){
+    print("{\"map\":\(map),\"isSolved\":false},")
 }

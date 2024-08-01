@@ -11,50 +11,74 @@ struct SceneBuilder: View {
     @State var isNextLevel: Bool = false
     @State var isAlert: Bool = false
     @State var isProcessing: Bool = false  // Новий прапор для блокування дій
+    @State var isHomeScreen : Bool = false
+    @State var IsButtonNextLevel : Bool = false
     let screenWidth = Int(UIScreen.main.bounds.width - 20)
 
     var body: some View {
-        ZStack {
-            Color(bgcolor)
-                .ignoresSafeArea()
-
-            if !isNextLevel {
-                VStack(spacing: 0) {
-                    ForEach(elementsMap.indices, id: \.self) { i in
-                        HStack(spacing: 0) {
-                            ForEach(elementsMap[i].indices, id: \.self) { j in
-                                LineObj(viewModel: elementsMap[i][j]) {
-                                    if !isProcessing {
-                                        checkCompleteness()
+        if !isHomeScreen {
+            ZStack {
+                Color(bgcolor)
+                    .ignoresSafeArea()
+                
+                if !isNextLevel {
+                    VStack(spacing: 0) {
+                        ForEach(elementsMap.indices, id: \.self) { i in
+                            HStack(spacing: 0) {
+                                ForEach(elementsMap[i].indices, id: \.self) { j in
+                                    LineObj(viewModel: elementsMap[i][j]) {
+                                        if !isProcessing {
+                                            checkCompleteness()
+                                        }
                                     }
+                                    .aspectRatio(1, contentMode: .fit)
                                 }
-                                .aspectRatio(1, contentMode: .fit)
                             }
                         }
                     }
+                    .frame(minWidth: CGFloat(screenWidth), maxWidth: CGFloat(screenWidth), idealHeight: CGFloat(75 * map.count))
+                    .onAppear {
+                        self.elementsMap = generateElementsMap()
+                    }
+                    .transition(.opacity)
+                    HStack(alignment: .bottom){
+                        VStack(alignment: .leading){
+                            Spacer()
+                            Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor)
+                        }
+                        Spacer()
+                            
+                    }
+                    .padding()
+                    
+                } else {
+                    Text("\(CurrentLevel)")
+                        .font(.system(size: 150))
+                        .foregroundColor(.white)
+                        .transition(.opacity)
                 }
-                .frame(minWidth: CGFloat(screenWidth), maxWidth: CGFloat(screenWidth), idealHeight: CGFloat(75 * map.count))
-                .onAppear {
+            }
+            .alert("Вітаю!", isPresented: $isAlert) {
+                Button("Почати наново", role: .cancel) {
+                    isNextLevel = false
+                    CurrentLevel = 1
+                    saveCurrentNumber(CurrentLevel)
+                    map = standartLevels[CurrentLevel - 1].map
                     self.elementsMap = generateElementsMap()
                 }
+            } message: {
+                Text("Ви пройшли гру!")
+            }
+            .onChange(of: IsButtonNextLevel){
+                if IsButtonNextLevel {
+                    manualTransitionToTheNextLevel()
+                    IsButtonNextLevel = false
+                }
+            }
+        } // if statement
+        else {
+            HomeView()
                 .transition(.opacity)
-            } else {
-                Text("\(CurrentLevel)")
-                    .font(.system(size: 150))
-                    .foregroundColor(.white)
-                    .transition(.opacity)
-            }
-        }
-        .alert("Вітаю!", isPresented: $isAlert) {
-            Button("Почати наново", role: .cancel) {
-                isNextLevel = false
-                CurrentLevel = 1
-                saveCurrentNumber(CurrentLevel)
-                map = standartLevels[CurrentLevel - 1].map
-                self.elementsMap = generateElementsMap()
-            }
-        } message: {
-            Text("Ви пройшли гру!")
         }
     }
 
@@ -77,7 +101,7 @@ struct SceneBuilder: View {
         }
 
         if isComplete {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     isNextLevel = isComplete
                 }
@@ -99,6 +123,28 @@ struct SceneBuilder: View {
             }
         } else {
             isProcessing = false // Якщо не завершено, дозволяємо дії знову
+        }
+        
+    }
+    
+    func manualTransitionToTheNextLevel(){
+        withAnimation {
+            isNextLevel = true
+        }
+        if (standartLevels.count > CurrentLevel) {
+            CurrentLevel += 1
+            saveCurrentNumber(CurrentLevel)
+            map = standartLevels[CurrentLevel - 1].map
+            self.elementsMap = generateElementsMap()
+        } else {
+            isAlert = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            withAnimation {
+                bgcolor = colorFalse
+                isNextLevel = false
+            }
+            isProcessing = false
         }
     }
 }

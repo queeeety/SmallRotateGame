@@ -177,7 +177,8 @@ struct BuildYourLevel: View {
                 .padding([.trailing, .leading]) // actionButtons
                 
                 Button(){
-                    saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
+//                    saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
+                    print("{\"map\":\(map),\"isSolved\":false},")
                     } label:{
                         ZStack{
                             RoundedRectangle(cornerRadius: 30)
@@ -204,13 +205,10 @@ struct BuildYourLevel: View {
 
     func checkCompleteness() {
         if elementsMap.allSatisfy({ $0.allSatisfy { $0.number == 0 } }) {
-            // Perform actions if all elements are 0
-            print("Zero elements")
+
         } else {
-            print(">Zero elements")
 
             let isComplete = performCheckCompleteness(elements: elementsMap)
-            print("Completeness check: \(isComplete)")
             self.isCorrect = isComplete
             withAnimation {
                 self.bgcolor = isComplete ? .green : .purple
