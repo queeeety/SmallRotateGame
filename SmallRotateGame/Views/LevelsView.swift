@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LevelsView: View {
     let screenWidth = UIScreen.main.bounds.width
-    @State private var playerLevels = loadLevels(from: "levels")
     @State private var isHomeScreen = false
     @State private var isLevel = false
     @State private var iconsColor = LinearGradient(colors: [.indigo], startPoint: .leading, endPoint: .bottomTrailing)
@@ -42,7 +41,7 @@ struct LevelsView: View {
                         ScrollView {
                             LazyVGrid(columns: columns, spacing: 10) {
                                 ForEach(standartLevels.indices, id: \.self) { level in
-                                    let color = playerLevels[level].isSolved ? Color.purple.opacity(0.7) : playerLevels[level-1].isSolved ? Color.purple : Color.purple.opacity(0.3)
+                                    let color = standartLevels[level].isSolved ? Color.purple.opacity(0.7) : standartLevels[level-1].isSolved ? Color.purple : Color.purple.opacity(0.3)
                                     Button {
                                         if color == Color.purple || color == Color.purple.opacity(0.7){ //Checking the availability
                                             CurrentLevel = level + 1
@@ -50,21 +49,27 @@ struct LevelsView: View {
                                                 isLevel.toggle()
                                             }
                                         }
-                                    } label: { ZStack {
-                                        
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .frame(height: 100)
-                                            .foregroundColor(color/*.opacity(0.5)*/)
-                                            .shadow(radius: 10)
-                                        
-                                        Text("\(level+1)")
-                                            .font(.largeTitle)
-                                            .foregroundColor(.white)
+                                    } label: {
+                                        ZStack {
+                                            
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .frame(height: 100)
+                                                .foregroundColor(color/*.opacity(0.5)*/)
+                                                .shadow(radius: 10)
+                                            
+                                            Text("\(level+1)")
+                                                .font(.largeTitle)
+                                                .foregroundColor(.white)
+                                        }
                                     }
+                                    .onAppear{
+                                        print("\(level): \(standartLevels[level].isSolved)")
                                     }
                                 }
                             }
                             .padding([.trailing, .leading], 10)
+
+                            }
                         }
 
                     }
@@ -92,26 +97,6 @@ struct LevelsView: View {
                         }
                         .transition(.move(edge: .leading).combined(with: .opacity))
                         
-                        Button {
-                            withAnimation {
-                                self.playerLevels = loadLevels(from: "levels")
-                            }
-                        } label: {
-                            Circle()
-                                .foregroundStyle(.ultraThinMaterial)
-                                .frame(width: screenWidth * 0.18, height: screenWidth * 0.18)
-                                .opacity(0.8)
-                                .shadow(radius: 5)
-                                .overlay {
-                                    Image(systemName: "arrow.circlepath")
-                                        .resizable()
-                                        .bold()
-                                        .padding()
-                                        .foregroundStyle(iconsColor)
-                                        .bold()
-                                }
-                        }
-                        .transition(.move(edge: .leading).combined(with: .opacity))
                     } // Buttons HStack
                 }// Buttons VStack
                 
@@ -120,9 +105,8 @@ struct LevelsView: View {
                     HomeView()
                         .transition(.opacity)
                 }
-            } // ZStack
-        }//else closure
-    }
+        } // else cloasure
+        }
 }
 
 #Preview {

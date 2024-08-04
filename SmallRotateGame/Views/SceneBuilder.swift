@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SceneBuilder: View {
-    @State var map: [[Int]] = standartLevels[CurrentLevel - 1].map
+    @State var map: [[Int]] = preLoadedLevels[CurrentLevel - 1].map
     @State private var elementsMap: [[LineObject]] = []
     @State var colorFalse = Color.red
     @State var colorTrue = Color.green
@@ -63,7 +63,7 @@ struct SceneBuilder: View {
                     isNextLevel = false
                     CurrentLevel = 1
                     saveCurrentNumber(CurrentLevel)
-                    map = standartLevels[CurrentLevel - 1].map
+                    map = preLoadedLevels[CurrentLevel - 1].map
                     self.elementsMap = generateElementsMap()
                 }
             } message: {
@@ -105,10 +105,10 @@ struct SceneBuilder: View {
                 withAnimation {
                     isNextLevel = isComplete
                 }
-                if (standartLevels.count > CurrentLevel) {
+                if (preLoadedLevels.count > CurrentLevel) {
                     CurrentLevel += 1
                     saveCurrentNumber(CurrentLevel)
-                    map = standartLevels[CurrentLevel - 1].map
+                    map = preLoadedLevels[CurrentLevel - 1].map
                     self.elementsMap = generateElementsMap()
                 } else {
                     isAlert = true
@@ -131,10 +131,10 @@ struct SceneBuilder: View {
         withAnimation {
             isNextLevel = true
         }
-        if (standartLevels.count > CurrentLevel) {
+        if (preLoadedLevels.count > CurrentLevel) {
             CurrentLevel += 1
             saveCurrentNumber(CurrentLevel)
-            map = standartLevels[CurrentLevel - 1].map
+            map = preLoadedLevels[CurrentLevel - 1].map
             self.elementsMap = generateElementsMap()
         } else {
             isAlert = true

@@ -41,8 +41,23 @@ func loadLevels(from fileName: String) -> [Level] {
         return levels
     } catch {
         print("Помилка при завантаженні даних: \(error)")
-        return [Level(map: [], isSolved: false)]
+        return [Level(map: startMap, isSolved: false)]
     }
+}
+
+func loadLevelsFromFileDirectly()->[Level]{
+    let url = Bundle.main.url(forResource: "levels", withExtension: "json")!
+    do{
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        let levels = try! decoder.decode([Level].self, from: data)
+        return levels
+    }
+    catch {
+        print ("Error \(error)")
+        return ([Level(map: startMap, isSolved: false)])
+    }
+    
 }
 
 func saveCurrentNumber(_ number: Int) {
@@ -50,6 +65,7 @@ func saveCurrentNumber(_ number: Int) {
     let newData = try! JSONEncoder().encode(number)
     try? newData.write(to: url)
     changeLevelReachability(numberOfLevelDone: number)
+
 }
 
 func getCurrentNumber() -> Int {
@@ -60,7 +76,7 @@ func getCurrentNumber() -> Int {
         let number = try decoder.decode(Int.self, from: data)
         return number
     } catch {
-        return 0
+        return 1
     }
 }
 
@@ -69,20 +85,16 @@ func changeLevelReachability(numberOfLevelDone: Int) {
     let decoder = JSONDecoder()
 
     var levels = [Level]()
-    
     if let data = try? Data(contentsOf: mainURL),
        let existingLevels = try? decoder.decode([Level].self, from: data) {
         levels = existingLevels
+        levels[numberOfLevelDone - 1].isSolved = true
+        
+        if let newData = try? encoder.encode(levels) {
+            try? newData.write(to: mainURL)
+            print("Done to \(mainURL)")
+        }
     }
-    
-    levels[numberOfLevelDone - 1].isSolved = true
-    
-    if let newData = try? encoder.encode(levels) {
-        try? newData.write(to: mainURL)
-        print("Done to \(mainURL)")
-    }
-
-    
 }
 
 func createInitialLevelsFile() {
