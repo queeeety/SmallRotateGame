@@ -13,16 +13,26 @@ struct SmallRotateGameApp: App {
         WindowGroup {
             HomeView()
                 .onAppear{
-                    printLevelsAdded()
-                    saveCurrentNumber(1)
+                    checkFirstLaunch()
+                    standartLevels = loadLevels(from: "levels")
                 }
         }
         
     }
 }
+
+func checkFirstLaunch() {
+    let defaults = UserDefaults.standard
+    if defaults.bool(forKey: "isFirstLaunch") == false {
+        createInitialLevelsFile()
+        defaults.set(true, forKey: "isFirstLaunch")
+    }
+}
+
 public var CurrentLevel = getCurrentNumber()
     
-public let standartLevels = loadLevels (from: "levels")
+public var standartLevels : [Level] = []
+
 let startMap =  [[0, 0, 1, 1, 0, 0],
                 [0, 0, 2, 2, 0, 0],
                 [0, 0, 3, 5, 1, 0],

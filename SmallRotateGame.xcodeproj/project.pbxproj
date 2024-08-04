@@ -18,7 +18,7 @@
 /* Begin PBXFileReference section */
 		C912640D2C59A4270082BDF8 /* levels.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = levels.csv; sourceTree = "<group>"; };
 		C926E8402C56BC7000C14176 /* SmallRotateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallRotateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C9E7B5CD2C5AB12B00B97AEF /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = levels.json; sourceTree = "<group>"; };
+		C9E7B5CD2C5AB12B00B97AEF /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = levels.json; path = ../../../../../../../../../Users/tim_bzz/Documents/projects/xcode/SmallRotateGame/levels.json; sourceTree = SDKROOT; };
 		C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PlayerLevels.json; sourceTree = "<group>"; };
 		C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrentLevel.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */

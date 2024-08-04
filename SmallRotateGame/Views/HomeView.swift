@@ -23,7 +23,7 @@ struct HomeView: View {
             }
             else if isCreateLevelScreen {
                 BuildYourLevel()
-                    .transition(.opacity)
+                    .transition(.slide)
             }
             else{
                     ZStack{
