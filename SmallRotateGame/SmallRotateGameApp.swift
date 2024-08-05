@@ -29,7 +29,7 @@ func checkFirstLaunch() {
 }
 
 public var CurrentLevel = getCurrentNumber() 
-    
+public var CreatedLevels : [Level] = loadLevels(from: "PlayerLevels")
 public var standartLevels : [Level] = loadLevels(from: "levels")
 public let preLoadedLevels = loadLevelsFromFileDirectly()
 let startMap =  [[0, 0, 1, 1, 0, 0],

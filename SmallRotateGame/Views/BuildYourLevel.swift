@@ -3,13 +3,10 @@ import SwiftUI
 struct BuildYourLevel: View {
 
    @State private var map = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0],
-//        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
     ]
     
     @State private var elementsMap: [[LineObject]] = []
@@ -18,6 +15,8 @@ struct BuildYourLevel: View {
     @State var changePoint = [Int]()
     @State var isButtonPushed = false
     @State var isMainLevel = false
+    @State var isStatus = false
+    @State var savingStatus = false
     let screenWidth = Int(UIScreen.main.bounds.width-20)
     var body: some View {
         ZStack {
@@ -32,7 +31,7 @@ struct BuildYourLevel: View {
                     }label:{
                         Image(systemName: "chevron.backward")
                             .font(.title)
-                            .foregroundStyle(.indigo)
+                            .foregroundStyle(.white)
                             .bold()
                             .shadow(radius: 5)
                     }
@@ -40,7 +39,7 @@ struct BuildYourLevel: View {
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .padding([.top, .bottom], 20)
-                }
+                } // label
                 Spacer()
                 
                 ScrollView{
@@ -188,12 +187,28 @@ struct BuildYourLevel: View {
                             .overlay(Image(systemName: "xmark").font(.largeTitle).foregroundStyle(Color.red))
                         
                     }
-                }
+                } // buttons
                 .padding([.trailing, .leading]) // actionButtons
                 
                 Button(){
-                    //                    saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
-                    print("{\"map\":\(map),\"isSolved\":false},")
+                    let isZero = map.allSatisfy { $0.allSatisfy { $0 == 0 } }
+                    if isZero {
+                        savingStatus = saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
+                        print("Level saved")
+                        withAnimation{
+                            isStatus = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            withAnimation{
+                                isStatus = false
+                            }
+                        }
+                        withAnimation{
+                            map = map.map {row in row.map { _ in 0 } }
+                            elementsMap = generateElementsMap()
+                        }
+                    }
+                    
                 } label:{
                     ZStack{
                         RoundedRectangle(cornerRadius: 30)
@@ -211,7 +226,18 @@ struct BuildYourLevel: View {
                 HomeView()
                     .transition(.slide)
             }
-        }
+            if isStatus {
+                withAnimation{
+                    
+                    VStack{
+                        approvalView(isApproved: isStatus)
+                        Spacer()
+                    }
+                    .transition(.move(edge: .top))
+                    .animation(.easeInOut, value: savingStatus)
+                }
+            }
+        } // ZStack
     }
     
     func generateElementsMap() -> [[LineObject]] {

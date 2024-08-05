@@ -11,7 +11,7 @@ func getDocumentsDirectory() -> URL {
     return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 }
 
-func saveLevel(_ level: Level, to fileName: String, numberOfLevelDone: Int = 0) {
+func saveLevel(_ level: Level, to fileName: String) -> Bool {
     let encoder = JSONEncoder()
     let decoder = JSONDecoder()
     let url = getDocumentsDirectory().appendingPathComponent(fileName).appendingPathExtension("json")
@@ -28,7 +28,12 @@ func saveLevel(_ level: Level, to fileName: String, numberOfLevelDone: Int = 0) 
     if let newData = try? encoder.encode(levels) {
         try? newData.write(to: url)
         print("Done to \(url)")
+        
     }
+    else {
+        return false
+    }
+    return true
 }
 
 func loadLevels(from fileName: String) -> [Level] {

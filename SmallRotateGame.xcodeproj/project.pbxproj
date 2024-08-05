@@ -11,7 +11,6 @@
 		C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = C926E85D2C57CE7300C14176 /* SwiftSVG */; };
 		C960F3C12C59A13B009A628A /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = C960F3C02C59A13B009A628A /* SwiftCSV */; };
 		C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5CD2C5AB12B00B97AEF /* levels.json */; };
-		C9E7B5D42C5AB90900B97AEF /* PlayerLevels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */; };
 		C9E7B5D62C5ACB7400B97AEF /* CurrentLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */; };
 /* End PBXBuildFile section */
 
@@ -19,7 +18,6 @@
 		C912640D2C59A4270082BDF8 /* levels.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = levels.csv; sourceTree = "<group>"; };
 		C926E8402C56BC7000C14176 /* SmallRotateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallRotateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E7B5CD2C5AB12B00B97AEF /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = levels.json; path = ../../../../../../../../../Users/tim_bzz/Documents/projects/xcode/SmallRotateGame/levels.json; sourceTree = SDKROOT; };
-		C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PlayerLevels.json; sourceTree = "<group>"; };
 		C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrentLevel.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,7 +42,6 @@
 			isa = PBXGroup;
 			children = (
 				C9E7B5CD2C5AB12B00B97AEF /* levels.json */,
-				C9E7B5D32C5AB8FE00B97AEF /* PlayerLevels.json */,
 				C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */,
 				C912640D2C59A4270082BDF8 /* levels.csv */,
 				C926E8422C56BC7000C14176 /* SmallRotateGame */,
@@ -135,7 +132,6 @@
 				C9E7B5D62C5ACB7400B97AEF /* CurrentLevel.json in Resources */,
 				C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */,
 				C912640F2C59A4320082BDF8 /* levels.csv in Resources */,
-				C9E7B5D42C5AB90900B97AEF /* PlayerLevels.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
