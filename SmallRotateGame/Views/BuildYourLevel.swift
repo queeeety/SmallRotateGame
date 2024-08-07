@@ -124,7 +124,7 @@ struct BuildYourLevel: View {
                             .overlay(Image(systemName: "increase.quotelevel").font(.largeTitle))
                     }
                     Button{
-                        if (map[0].count <= 10) {
+                        if (map[0].count <= 14) {
                             map.append(Array(repeating: 0, count: map[0].count))
                             self.elementsMap = generateElementsMap()
                             checkCompleteness()

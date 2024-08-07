@@ -69,12 +69,16 @@ struct SceneBuilder2: View {
                                     }
                                 }
                             }
+                            if (map.count >= 13){
+                                Spacer()
+                            }
                         }
                         .frame(minWidth: CGFloat(screenWidth), maxWidth: CGFloat(screenWidth), idealHeight: CGFloat(75 * map.count))
                         .onAppear {
                             self.elementsMap = generateElementsMap()
                         }
                         .transition(.opacity)
+                        
                     }
                     HStack(alignment: .bottom){
                         VStack(alignment: .leading){
@@ -213,5 +217,5 @@ struct SceneBuilder2: View {
 }
 
 #Preview {
-    SceneBuilder2(mode: 1)
+    SceneBuilder2(mode: 3, difficulty: 5)
 }

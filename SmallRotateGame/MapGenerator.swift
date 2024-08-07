@@ -223,8 +223,8 @@ func MapGenerator(difficulty: Int) -> [[Int]]{
         1: [[3,4], [3,4]],
         2: [[5, 6], [5,6]],
         3: [[7, 8], [7, 8]],
-        4: [[10, 13], [7,8]],
-        5: [[14, 20], [8, 10]]
+        4: [[9, 10], [7,8]],
+        5: [[11,14], [8, 10]]
     ]
     let sizes = difficultiesSizeMap[difficulty]!
     
