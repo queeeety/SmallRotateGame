@@ -143,4 +143,29 @@ func updateVariablesWithLevels(mode: Int = 1){
     }
 }
 
-        
+func CustomLevelsDeletion(mode: Int = 1, level: Int = 0) // mode: 1 - full deletion, 2 - 1 level deletion
+{
+    let encoder = JSONEncoder()
+    let filePath = getDocumentsDirectory().appendingPathComponent("PlayerLevels").appendingPathExtension("json")
+
+    if mode == 1 {
+        CreatedLevels.removeAll()
+        do {
+            let data = try JSONSerialization.data(withJSONObject: [], options: .prettyPrinted)
+            if let jsonString = String(data: data, encoding: .utf8) {
+                try jsonString.write(to: filePath, atomically: true, encoding: .utf8)
+                print("Файл успішно перезаписано")
+            }
+        } catch {
+            print("Помилка при перезаписанні файлу: \(error.localizedDescription)")
+        }
+    }
+    else {
+        CreatedLevels.remove(at: level)
+        if let newData = try? encoder.encode(CreatedLevels) {
+            try? newData.write(to: filePath)
+            print("File was rewritten to \(mainURL)")
+        }
+    }
+    NotificationCenter.default.post(name: Notification.Name("LevelsUpdated"), object: nil)
+}

@@ -12,8 +12,9 @@ struct LevelsView: View {
     @State private var isHomeScreen = false
     @State private var isLevel = false
     @State private var isCustomLevel = false
-    @State private var isRegularLevels = true
+    @State private var isRegularLevels = false
     @State private var iconsColor = Color.indigo
+    @State private var levels = CreatedLevels
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -36,7 +37,7 @@ struct LevelsView: View {
                     .ignoresSafeArea()
                 VStack {
                     if isRegularLevels {
-                        if (standartLevels.count < 1) {
+                        if (standartLevels.count <= 1) {
                             Text("Жодного рівня немає")
                                 .font(.system(size: 20))
                                 .foregroundStyle(Color.white)
@@ -80,7 +81,7 @@ struct LevelsView: View {
                         }
                     }
                     else {
-                        if (CreatedLevels.count <= 1) {
+                        if (CreatedLevels.isEmpty) {
                             Text("Жодного рівня немає")
                                 .font(.system(size: 20))
                                 .foregroundStyle(Color.white)
@@ -91,34 +92,71 @@ struct LevelsView: View {
                         } else {
                             ScrollView {
                                 LazyVGrid(columns: columns, spacing: 10) {
-                                    ForEach(CreatedLevels.indices, id: \.self) { level in
+                                    ForEach(levels.indices, id: \.self) {level in
                                         let color = Color.purple
                                         Button {
                                             withAnimation {
-                                                CurrentLevel = level
+                                                CurrentPlayersLevel = level + 1
                                                 isCustomLevel.toggle()
                                             }
                                         } label: {
-                                            ZStack {
-                                                RoundedRectangle(cornerRadius: 20)
-                                                    .frame(height: 100)
-                                                    .foregroundColor(color/*.opacity(0.5)*/)
-                                                    .shadow(radius: 10)
-                                                
+                                            RoundedRectangle(cornerRadius: 20)
+                                            .frame(height: 100)
+                                            .foregroundColor(color)
+                                            .shadow(radius: 10)
+                                            .overlay{
                                                 Text("\(level+1)")
                                                     .font(.largeTitle)
                                                     .foregroundColor(.white)
                                             }
+                                            .contextMenu {
+                                                Button(role:.destructive) {
+                                                    CustomLevelsDeletion(mode:2, level: level)
+                                                } label: {
+                                                    Text("Видалити рівень")
+                                                }
+                                            }
                                         }
+                                        .transition(.opacity)
                                         .onAppear{
-                                            print("\(level): \(standartLevels[level].isSolved)")
+                                            print("\(level): \(levels[level].isSolved)")
                                         }
                                     }
                                 }
+                                .onAppear{
+                                    levels = CreatedLevels
+                                }
                                 .padding([.trailing, .leading], 10)
-                                
+                                .onReceive(NotificationCenter.default.publisher(for: Notification.Name("LevelsUpdated"))) { _ in
+                                    withAnimation{
+                                        levels = CreatedLevels
+                                    }
+                                }
+                                .padding([.trailing, .leading], 10)
+                                    Button(){
+                                        CustomLevelsDeletion(mode:1)
+                                        
+                                    } label: {
+                                        ZStack{
+                                            RoundedRectangle(cornerRadius: 40)
+                                                .foregroundStyle(.white.opacity(0.4))
+                                                .shadow(radius: 10)
+                                                .overlay{
+                                                    HStack{
+                                                        Image(systemName: "delete.right.fill")
+                                                            .foregroundStyle(.white)
+                                                        Text("Видалити всі")
+                                                            .foregroundStyle(.white)
+                                                    }
+                                                }
+                                        }
+                                    }
+                                // Button delete all
+                                    .frame(width: 200, height: 50)
+                                    .padding(.top, 20)
                             } .transition(.move(edge: .trailing))
                                 .animation(.smooth, value: isRegularLevels)
+                                
                         }
                     }
                 }
