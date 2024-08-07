@@ -11,6 +11,8 @@ struct HomeView: View {
     @State var isGameScreen = false
     @State var isLevelsScreen = false
     @State var isCreateLevelScreen = false
+    @State var isRandomLevel = false
+    let screenWidth = UIScreen.main.bounds.width
     var body: some View {
         ZStack{
             RadialGradient(colors: [.purple,.indigo], center: .top, startRadius: 10, endRadius: 500)
@@ -35,8 +37,7 @@ struct HomeView: View {
                 }
                 Spacer()
                 Spacer()
-                HStack(alignment: .bottom){
-                    Spacer()
+                HStack(alignment: .top){
                     Button{
                         withAnimation{
                             isLevelsScreen.toggle()
@@ -53,8 +54,10 @@ struct HomeView: View {
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text("Доступні").foregroundColor(.white).font(.headline)
+                            Text("Всі рівні").foregroundColor(.white).font(.headline).lineLimit(nil)
                         }
+                        .frame(width: screenWidth/3-10)
+
                         
                     }
                     Spacer()
@@ -74,11 +77,15 @@ struct HomeView: View {
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text("Створити").foregroundColor(.white).font(.headline)
-                        }
+                            Text("Створити рівень").foregroundColor(.white).font(.headline).lineLimit(nil)
+                        }.frame(width: screenWidth/3-10)
                     }
                     Spacer()
-                    Button{} label:{
+                    Button{
+                        withAnimation{
+                            isRandomLevel.toggle()
+                        }
+                    } label:{
                         VStack{
                             Circle()
                                 .frame(minWidth: 50, idealWidth: 75, maxWidth: 80, minHeight: 50, idealHeight: 75, maxHeight: 80)
@@ -90,10 +97,9 @@ struct HomeView: View {
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text("хз шо").foregroundColor(.white).font(.headline)
-                        }
+                            Text("Нескінченна гра").foregroundColor(.white).font(.headline).lineLimit(nil)
+                        }.frame(width: screenWidth/3-10)
                     }
-                    Spacer()
                     
                 }
             }
@@ -107,6 +113,10 @@ struct HomeView: View {
             }
             else if isCreateLevelScreen {
                 BuildYourLevel()
+                    .transition(.opacity)
+            }
+            else if isRandomLevel {
+                DifficultView()
                     .transition(.opacity)
             }
         }//ZStack

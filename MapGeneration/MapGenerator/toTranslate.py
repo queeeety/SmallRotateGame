@@ -200,61 +200,15 @@ def fact_checking():
 
 def main():
     global SIZES
-    numberOfTheMaps = 200
     maps = []
     SIZES = [[3, 5], [3, 5]]
-    for i in range(numberOfTheMaps*2):
-        while True:
-            generate_map()
-            if fact_checking():
-                print("Map is valid")
-                break
-            else:
-                print("Map is invalid")
-        print("Map number: ", i)
-        maps.append(level_map_int)
-        if i == int(numberOfTheMaps / 2):
-            SIZES = [[6, 10], [6, 10]]
-    write_map_to_json(maps)
-
-
-
-def write_map_to_json(map_data):
-    file_path = "valid_levels.json"
-    with open(file_path, 'a+') as json_file:  # Open the file in append and read mode
-        # If the file is not empty, move the file pointer to the end of the file
-        if json_file.tell() > 0:
-            # Move the file pointer to the end of the file
-            json_file.seek(0, 2)
-            # Move the file pointer 1 step back from the end of the file
-            json_file.seek(json_file.tell() - 1, 0)
-            # Read the last character
-            last_char = json_file.read(1)
-            # If the last character is a closing square bracket, replace it with a comma
-            if last_char == ']':
-                json_file.seek(json_file.tell() - 1, 0)
-                json_file.truncate()
-                json_file.write(',')
-        # If the file is empty, add an opening square bracket
-        elif json_file.tell() == 0:
-            json_file.write('[')
-        # Write the map data to the file
-        for i, map in enumerate(map_data):
-            data = {"map": map, "isSolved": False}
-            json.dump(data, json_file)
-            # Add a comma after each map
-            if i != len(map_data) - 1:
-                json_file.write(',')
-            json_file.write('\n')
-        # Move the file pointer 1 step back from the end of the file
-        json_file.seek(json_file.tell() - 1, 0)
-        # Remove the last comma
-        json_file.truncate()
-        # Add a closing square bracket at the end of the file
-        json_file.write(']')
-
-
-if __name__ == "__main__":
-    main()
+    while True:
+        generate_map()
+        if fact_checking():
+            print("Map is valid")
+            break
+        else:
+            print("Map is invalid")
+    print("Map number: ", i)
 
 

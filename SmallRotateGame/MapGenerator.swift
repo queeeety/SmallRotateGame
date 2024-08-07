@@ -52,7 +52,7 @@ let DIRECTIONS_CONNECTIONS: [String: String] = [
 
 
 
-func generate_map(sizes: [[Int]] = [[3, 10], [3, 10]]) -> ([[Int]], [[[String]]]) {
+func generateMap(sizes: [[Int]] = [[3, 10], [3, 10]]) -> ([[Int]], [[[String]]]) {
     var connectionsQueue = Queue<(Int, Int)>()
     var level_map_int: [[Int]] = [[]]
     var level_map_connections: [[[String]]] = [[]]
@@ -75,7 +75,7 @@ func generate_map(sizes: [[Int]] = [[3, 10], [3, 10]]) -> ([[Int]], [[[String]]]
             first_element_pos = (first_Point_Vertical_Position, Int.random(in: 0..<horisontalSize))
         }
         
-        let possibleDictionary = required_connections(position: first_element_pos, level_map_int: level_map_int, level_map_connections: level_map_connections)
+        let possibleDictionary = requiredConnections(position: first_element_pos, level_map_int: level_map_int, level_map_connections: level_map_connections)
         if possibleDictionary == [0: []] {
             deadEnds.append(first_element_pos)
             continue
@@ -93,7 +93,7 @@ func generate_map(sizes: [[Int]] = [[3, 10], [3, 10]]) -> ([[Int]], [[[String]]]
             let current_Point = connectionsQueue.dequeue()!
             if level_map_int[current_Point.0][current_Point.1] != 0 { continue }
 
-            let possibleConnections = required_connections(position: current_Point, level_map_int: level_map_int, level_map_connections: level_map_connections)
+            let possibleConnections = requiredConnections(position: current_Point, level_map_int: level_map_int, level_map_connections: level_map_connections)
             if possibleConnections.isEmpty { continue }
             
             let randomKey = possibleConnections.keys.randomElement()!
@@ -116,7 +116,7 @@ func generate_map(sizes: [[Int]] = [[3, 10], [3, 10]]) -> ([[Int]], [[[String]]]
 }
 
 
-func required_connections(position: (Int, Int), level_map_int: [[Int]], level_map_connections: [[[String]]]) -> [Int: [[String]]] {
+func requiredConnections(position: (Int, Int), level_map_int: [[Int]], level_map_connections: [[[String]]]) -> [Int: [[String]]] {
     var mandatoryConnections: [String] = []
     var impossibleConnections: [String] = []
     var possibleConnections: [Int: [[String]]] = [:]
@@ -191,7 +191,7 @@ func required_connections(position: (Int, Int), level_map_int: [[Int]], level_ma
     return possibleConnections
 }
 
-func fact_checking(level_map_int: [[Int]], level_map_connections: [[[String]]]) -> Bool {
+func factChecking(level_map_int: [[Int]], level_map_connections: [[[String]]]) -> Bool {
     for i in 0..<level_map_int.count {
         for j in 0..<level_map_int[i].count {
             if level_map_connections.isEmpty { continue }
@@ -218,12 +218,19 @@ func fact_checking(level_map_int: [[Int]], level_map_connections: [[[String]]]) 
 }
     
 
-func MapGenerator() -> [[Int]]{
-    let sizes = [[3, 5], [3, 5]]
+func MapGenerator(difficulty: Int) -> [[Int]]{
+    let difficultiesSizeMap: [Int: [[Int]]] = [
+        1: [[3,4], [3,4]],
+        2: [[5, 6], [5,6]],
+        3: [[7, 8], [7, 8]],
+        4: [[10, 13], [7,8]],
+        5: [[14, 20], [8, 10]]
+    ]
+    let sizes = difficultiesSizeMap[difficulty]!
     
     while true {
-        let maps = generate_map(sizes: sizes)
-        if fact_checking(level_map_int:maps.0, level_map_connections: maps.1) {
+        let maps = generateMap(sizes: sizes)
+        if factChecking(level_map_int:maps.0, level_map_connections: maps.1) {
             print (maps.0)
         } else {
             continue

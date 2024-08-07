@@ -24,13 +24,16 @@ struct SceneBuilder2: View {
     @State var isProcessing: Bool = false  // Новий прапор для блокування дій
     @State var isHomeScreen : Bool = false
     @State var IsButtonNextLevel : Bool = false
+    @State var difficulty: Int
     
     let screenWidth = Int(UIScreen.main.bounds.width - 20)
     
-    init(mode: Int){
+    init(mode: Int, difficulty: Int = 0){
         self.currentLevel = mode == 1 ? CurrentLevel : mode == 2 ? CurrentPlayersLevel : 1
         self.mode = mode
-        self.map = mode == 1 ? preLoadedLevels[currentLevel - 1].map : mode == 2 ? CreatedLevels[currentLevel - 1].map : MapGenerator()
+        self.difficulty = difficulty
+        self.map = mode == 1 ? preLoadedLevels[currentLevel - 1].map : mode == 2 ? CreatedLevels[currentLevel - 1].map : MapGenerator(difficulty: difficulty)
+        
     }
     var body: some View {
         if !isHomeScreen {
@@ -38,7 +41,9 @@ struct SceneBuilder2: View {
                 Color(bgcolor)
                     .ignoresSafeArea()
                     .onChange(of: currentLevel){
-                        saveCurrentNumber(currentLevel-1, mode: mode)
+                        if mode != 3 {
+                            saveCurrentNumber(currentLevel-1, mode: mode)
+                        }
                     }
                 
                 if !isNextLevel {
@@ -47,7 +52,7 @@ struct SceneBuilder2: View {
                             .onAppear{
                                 currentLevel = mode == 1 ? CurrentLevel : mode == 2 ? CurrentPlayersLevel : 1
                                 mode = mode
-                                map = mode == 1 ? preLoadedLevels[currentLevel - 1].map : mode == 2 ? CreatedLevels[currentLevel - 1].map : MapGenerator()
+                                map = mode == 1 ? preLoadedLevels[currentLevel - 1].map : mode == 2 ? CreatedLevels[currentLevel - 1].map : MapGenerator(difficulty: difficulty)
                             }
                     }
                     else{
@@ -123,7 +128,7 @@ struct SceneBuilder2: View {
         }
         else if mode == 3
         {
-            map = MapGenerator()
+            map = MapGenerator(difficulty: difficulty)
         }
     }
     
