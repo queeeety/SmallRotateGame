@@ -35,7 +35,7 @@ struct BuildYourLevel: View {
                             .bold()
                             .shadow(radius: 5)
                     }
-                    Text("Побудуй свій рівень")
+                    Text(NSLocalizedString("BuildYourLevel", comment:""))
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .padding([.top, .bottom], 20)
@@ -52,37 +52,37 @@ struct BuildYourLevel: View {
                                             Button {
                                                 changePoint = [i, j, 1]
                                             } label: {
-                                                Text("Початок")
+                                                Text(NSLocalizedString("StartPoint", comment:""))
                                                 Image("one")
                                             }
                                             Button {
                                                 changePoint = [i, j, 2]
                                             } label: {
-                                                Text("Пряма")
+                                                Text(NSLocalizedString("line", comment:""))
                                                 Image("line")
                                             }
                                             Button {
                                                 changePoint = [i, j, 3]
                                             } label: {
-                                                Text("Кутик")
+                                                Text(NSLocalizedString("corner", comment:""))
                                                 Image("corner")
                                             }
                                             Button {
                                                 changePoint = [i, j, 4]
                                             } label: {
-                                                Text("Літера Т")
+                                                Text(NSLocalizedString("t", comment:""))
                                                 Image("t")
                                             }
                                             Button {
                                                 changePoint = [i, j, 5]
                                             } label: {
-                                                Text("Хрест")
+                                                Text(NSLocalizedString("cross", comment:""))
                                                 Image("x")
                                             }
                                             Button(role:.destructive) {
                                                 changePoint = [i, j, 0]
                                             } label: {
-                                                Text("Нічого")
+                                                Text(NSLocalizedString("Nothing", comment:""))
                                                 Image("0")
                                             }
                                         }
@@ -194,7 +194,6 @@ struct BuildYourLevel: View {
                     let isZero = map.allSatisfy { $0.allSatisfy { $0 == 0 } }
                     if !isZero {
                         savingStatus = saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
-                        print("Level saved")
                         withAnimation{
                             isStatus = true
                         }
@@ -213,7 +212,7 @@ struct BuildYourLevel: View {
                     ZStack{
                         RoundedRectangle(cornerRadius: 30)
                             .foregroundColor(.white.opacity(0.5))
-                        Text("Зберегти рівень")
+                        Text(NSLocalizedString("SaveLevel", comment:""))
                             .font(.title2)
                     }
                     .frame(height: 70)

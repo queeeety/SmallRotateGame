@@ -57,8 +57,8 @@ struct SceneBuilder: View {
                         .transition(.opacity)
                 }
             }
-            .alert("Вітаю!", isPresented: $isAlert) {
-                Button("Почати наново", role: .cancel) {
+            .alert(NSLocalizedString("Greetings", comment:""), isPresented: $isAlert) {
+                Button(NSLocalizedString("StartAgain", comment:""), role: .cancel) {
                     isNextLevel = false
                     CurrentLevel = 1
                     saveCurrentNumber(CurrentLevel)
@@ -66,7 +66,7 @@ struct SceneBuilder: View {
                     self.elementsMap = generateElementsMap()
                 }
             } message: {
-                Text("Ви пройшли гру!")
+                Text(NSLocalizedString("StartAgaing", comment:""))
             }
             .onChange(of: IsButtonNextLevel){
                 if IsButtonNextLevel {

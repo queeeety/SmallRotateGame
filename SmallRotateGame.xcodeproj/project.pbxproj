@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C900C2592C643A72008C0322 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C900C2582C643A72008C0322 /* Localizable.xcstrings */; };
 		C912640F2C59A4320082BDF8 /* levels.csv in Resources */ = {isa = PBXBuildFile; fileRef = C912640D2C59A4270082BDF8 /* levels.csv */; };
 		C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = C926E85D2C57CE7300C14176 /* SwiftSVG */; };
 		C960F3C12C59A13B009A628A /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = C960F3C02C59A13B009A628A /* SwiftCSV */; };
@@ -15,14 +16,25 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C900C2582C643A72008C0322 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C912640D2C59A4270082BDF8 /* levels.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = levels.csv; sourceTree = "<group>"; };
 		C926E8402C56BC7000C14176 /* SmallRotateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallRotateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E7B5CD2C5AB12B00B97AEF /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = levels.json; path = ../../../../../../../../../Users/tim_bzz/Documents/projects/xcode/SmallRotateGame/levels.json; sourceTree = SDKROOT; };
 		C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrentLevel.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C94C8D3B2C642A7200C5B5B8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C926E83F2C56BC7000C14176 /* SmallRotateGame */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C926E8422C56BC7000C14176 /* SmallRotateGame */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SmallRotateGame; sourceTree = "<group>"; };
+		C926E8422C56BC7000C14176 /* SmallRotateGame */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (C94C8D3B2C642A7200C5B5B8 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SmallRotateGame; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				C9E7B5CD2C5AB12B00B97AEF /* levels.json */,
+				C900C2582C643A72008C0322 /* Localizable.xcstrings */,
 				C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */,
 				C912640D2C59A4270082BDF8 /* levels.csv */,
 				C926E8422C56BC7000C14176 /* SmallRotateGame */,
@@ -109,6 +122,7 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = C926E8372C56BC7000C14176;
 			packageReferences = (
@@ -131,6 +145,7 @@
 			files = (
 				C9E7B5D62C5ACB7400B97AEF /* CurrentLevel.json in Resources */,
 				C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */,
+				C900C2592C643A72008C0322 /* Localizable.xcstrings in Resources */,
 				C912640F2C59A4320082BDF8 /* levels.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -207,6 +222,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -263,6 +279,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -278,6 +295,7 @@
 				DEVELOPMENT_TEAM = B23L3JWP6N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmallRotateGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -307,6 +325,7 @@
 				DEVELOPMENT_TEAM = B23L3JWP6N;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SmallRotateGame/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

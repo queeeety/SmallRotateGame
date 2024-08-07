@@ -19,7 +19,7 @@ struct HomeView: View {
                 .ignoresSafeArea()
             VStack{
                 Spacer()
-                Text("Ланцюжок")
+                Text(NSLocalizedString("Chain", comment: "game name"))
                     .font(.largeTitle)
                     .foregroundColor(.white)
                     .padding()
@@ -31,7 +31,8 @@ struct HomeView: View {
                 } label: {
                     Circle()
                         .frame(minWidth: 75, idealWidth: 100, maxWidth: 125, minHeight: 75, idealHeight: 100, maxHeight: 125)
-                        .overlay(Text("Грати").foregroundColor(.white).font(.title))
+                        .overlay(Text(NSLocalizedString("Play", comment: "Start game"))
+                            .foregroundColor(.white).font(.title))
                         .shadow(radius: 5)
                         .foregroundStyle(.ultraThinMaterial)
                 }
@@ -54,7 +55,7 @@ struct HomeView: View {
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text("Всі рівні").foregroundColor(.white).font(.headline).lineLimit(nil)
+                            Text(NSLocalizedString("LevelMap", comment: "")).foregroundColor(.white).font(.headline).lineLimit(nil)
                         }
                         .frame(width: screenWidth/3-10)
 
@@ -77,7 +78,7 @@ struct HomeView: View {
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text("Створити рівень").foregroundColor(.white).font(.headline).lineLimit(nil)
+                            Text(NSLocalizedString("CreateLevel", comment:"")).foregroundColor(.white).font(.headline).lineLimit(nil)
                         }.frame(width: screenWidth/3-10)
                     }
                     Spacer()
@@ -97,7 +98,7 @@ struct HomeView: View {
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text("Нескінченна гра").foregroundColor(.white).font(.headline).lineLimit(nil)
+                            Text(NSLocalizedString("EndlessMode", comment: "")).foregroundColor(.white).font(.headline).lineLimit(nil)
                         }.frame(width: screenWidth/3-10)
                     }
                     

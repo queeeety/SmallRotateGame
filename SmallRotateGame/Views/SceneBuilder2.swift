@@ -48,7 +48,7 @@ struct SceneBuilder2: View {
                 
                 if !isNextLevel {
                     if (map == nil) {
-                        Text("Ви не створили жодного рівня")
+                        Text(NSLocalizedString("NoStandartLevels", comment:""))
                             .onAppear{
                                 currentLevel = mode == 1 ? CurrentLevel : mode == 2 ? CurrentPlayersLevel : 1
                                 mode = mode
@@ -97,8 +97,8 @@ struct SceneBuilder2: View {
                         .transition(.opacity)
                 }
             }
-            .alert("Вітаю!", isPresented: $isAlert) {
-                Button("Почати наново", role: .cancel) {
+            .alert(NSLocalizedString("Greetings", comment:""), isPresented: $isAlert) {
+                Button(NSLocalizedString("StartAgain", comment:""), role: .cancel) {
                     isNextLevel = false
                     currentLevel = 1
                     saveCurrentNumber(currentLevel, mode: mode)
@@ -107,7 +107,7 @@ struct SceneBuilder2: View {
                     self.elementsMap = generateElementsMap()
                 }
             } message: {
-                Text("Ви пройшли гру!")
+                Text(NSLocalizedString("AlertDone", comment:""))
             }
             .onChange(of: IsButtonNextLevel){
                 if IsButtonNextLevel {

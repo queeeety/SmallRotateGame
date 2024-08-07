@@ -12,7 +12,7 @@ struct LevelsView: View {
     @State private var isHomeScreen = false
     @State private var isLevel = false
     @State private var isCustomLevel = false
-    @State private var isRegularLevels = false
+    @State private var isRegularLevels = true
     @State private var iconsColor = Color.indigo
     @State private var levels = CreatedLevels
     let columns = [
@@ -38,7 +38,7 @@ struct LevelsView: View {
                 VStack {
                     if isRegularLevels {
                         if (standartLevels.count <= 1) {
-                            Text("Жодного рівня немає")
+                            Text(NSLocalizedString("NoStandartLevels", comment:""))
                                 .font(.system(size: 20))
                                 .foregroundStyle(Color.white)
                                 .transition(.move(edge: .leading))
@@ -82,7 +82,7 @@ struct LevelsView: View {
                     }
                     else {
                         if (CreatedLevels.isEmpty) {
-                            Text("Жодного рівня немає")
+                            Text(NSLocalizedString("NoPlayersLevels", comment:""))
                                 .font(.system(size: 20))
                                 .foregroundStyle(Color.white)
                                 .transition(.move(edge: .trailing))
@@ -113,7 +113,7 @@ struct LevelsView: View {
                                                 Button(role:.destructive) {
                                                     CustomLevelsDeletion(mode:2, level: level)
                                                 } label: {
-                                                    Text("Видалити рівень")
+                                                    Text(NSLocalizedString("Delete", comment:""))
                                                 }
                                             }
                                         }
@@ -145,7 +145,7 @@ struct LevelsView: View {
                                                     HStack{
                                                         Image(systemName: "delete.right.fill")
                                                             .foregroundStyle(.white)
-                                                        Text("Видалити всі")
+                                                        Text(NSLocalizedString("DeleteAll", comment:""))
                                                             .foregroundStyle(.white)
                                                     }
                                                 }

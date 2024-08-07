@@ -16,7 +16,7 @@ struct DifficultView: View {
             
             VStack {
                 Spacer()
-                Text("Виберіть складність")
+                Text(NSLocalizedString("ChooseDiff", comment:""))
                     .font(.largeTitle)
                     .foregroundStyle(.white)
                     .fontWeight(.bold)
@@ -76,7 +76,7 @@ struct DifficultView: View {
                         RoundedRectangle(cornerRadius: 40)
                             .foregroundStyle(RadialGradient(colors: whatButtonPressed != 0 ? [.purple] : [.purple.opacity(0.4)], center: .center, startRadius: 0, endRadius: 800))
                             .frame(width: .infinity, height: 100)
-                    Text("Грати")
+                    Text(NSLocalizedString("Play", comment:""))
                             .font(.system(size: 40, weight: .bold, design: .default))
                             .foregroundColor((whatButtonPressed != 0) ? .white : .purple)
                     }
@@ -104,11 +104,11 @@ struct DifficultyButtonsLabel: View {
     @Binding var isPressed: Bool
     var difNumber: Int
     let dictionaryLevels = [
-        1: "Дуже легко",
-        2: "Легко",
-        3: "Среднє",
-        4: "Складно",
-        5: "Дуже складно"
+        1: NSLocalizedString("VeryEasy", comment:""),
+        2: NSLocalizedString("Easy", comment:""),
+        3: NSLocalizedString("Medium", comment:""),
+        4: NSLocalizedString("Hard", comment:""),
+        5: NSLocalizedString("VeryHard", comment:"")
     ]
     
     var body: some View {
