@@ -26,15 +26,17 @@ struct LevelsView: View {
     
     var body: some View {
         if isLevel {
-            SceneBuilder(isRegularPlay: true)
+            SceneBuilder2(mode: 1)
                 .transition(.opacity)
+        } else if isCustomLevel {
+            SceneBuilder2(mode: 2)
         } else {
             ZStack {
                 RadialGradient(colors: [.purple, .indigo], center: .top, startRadius: 10, endRadius: 500)
                     .ignoresSafeArea()
                 VStack {
                     if isRegularLevels {
-                        if (standartLevels.count <= 1) {
+                        if (standartLevels.count < 1) {
                             Text("Жодного рівня немає")
                                 .font(.system(size: 20))
                                 .foregroundStyle(Color.white)
@@ -93,6 +95,7 @@ struct LevelsView: View {
                                         let color = Color.purple
                                         Button {
                                             withAnimation {
+                                                CurrentLevel = level
                                                 isCustomLevel.toggle()
                                             }
                                         } label: {
@@ -184,7 +187,8 @@ struct LevelsView: View {
                 
                 if isHomeScreen {
                     HomeView()
-                        .transition(.opacity)
+                        .transition(.move(edge: .leading))
+                            .animation(.smooth, value: isRegularLevels)
                 }
             }
         } // else cloasure

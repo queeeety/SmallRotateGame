@@ -98,7 +98,7 @@ struct HomeView: View {
                 }
             }
             if isGameScreen{
-                SceneBuilder(isRegularPlay: true)
+                SceneBuilder()
                     .transition(.opacity)
             }
             else if isLevelsScreen {

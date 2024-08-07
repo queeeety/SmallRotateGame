@@ -28,7 +28,9 @@ func checkFirstLaunch() {
     }
 }
 
-public var CurrentLevel = getCurrentNumber() 
+public var CurrentLevel = getCurrentNumber()
+public var CurrentPlayersLevel = getCurrentNumber(mode: 2)
+
 public var CreatedLevels : [Level] = loadLevels(from: "PlayerLevels")
 public var standartLevels : [Level] = loadLevels(from: "levels")
 public let preLoadedLevels = loadLevelsFromFileDirectly()

@@ -65,16 +65,23 @@ func loadLevelsFromFileDirectly()->[Level]{
     
 }
 
-func saveCurrentNumber(_ number: Int) {
-    let url = getDocumentsDirectory().appendingPathComponent("CurrentLevel").appendingPathExtension("json")
+func saveCurrentNumber(_ number: Int, mode: Int = 1) {
+    let names = [1: "CurrentLevel",
+        2: "CurrentPlayerLevel"]
+    let url = getDocumentsDirectory().appendingPathComponent(names[mode]!).appendingPathExtension("json")
     let newData = try! JSONEncoder().encode(number)
     try? newData.write(to: url)
-    changeLevelReachability(numberOfLevelDone: number)
-
+    if mode == 1 {
+        changeLevelReachability(numberOfLevelDone: number)
+    }
+    updateVariablesWithLevels(mode: mode)
+    
 }
 
-func getCurrentNumber() -> Int {
-    let url = getDocumentsDirectory().appendingPathComponent("CurrentLevel").appendingPathExtension("json")
+func getCurrentNumber(mode: Int = 1) -> Int {
+    let names = [1: "CurrentLevel",
+        2: "CurrentPlayerLevel"]
+    let url = getDocumentsDirectory().appendingPathComponent(names[mode]!).appendingPathExtension("json")
     do {
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
@@ -122,3 +129,18 @@ func createInitialLevelsFile() {
     }
 }
 
+func updateVariablesWithLevels(mode: Int = 1){
+    switch mode {
+        
+    case 1:
+        CurrentLevel = getCurrentNumber()
+        standartLevels = loadLevels(from: "levels")
+    case 2:
+        CurrentPlayersLevel = getCurrentNumber(mode: 2)
+        CreatedLevels = loadLevels(from: "PlayerLevels")
+    default:
+        break
+    }
+}
+
+        
