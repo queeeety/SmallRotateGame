@@ -192,7 +192,7 @@ struct BuildYourLevel: View {
                 
                 Button(){
                     let isZero = map.allSatisfy { $0.allSatisfy { $0 == 0 } }
-                    if isZero {
+                    if !isZero {
                         savingStatus = saveLevel(Level(map: map, isSolved: false), to: "PlayerLevels")
                         print("Level saved")
                         withAnimation{
