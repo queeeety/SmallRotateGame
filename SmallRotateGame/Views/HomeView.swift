@@ -12,6 +12,7 @@ struct HomeView: View {
     @State var isLevelsScreen = false
     @State var isCreateLevelScreen = false
     @State var isRandomLevel = false
+    @State var isSettings = false
     let screenWidth = UIScreen.main.bounds.width
     var body: some View {
         ZStack{
@@ -37,7 +38,25 @@ struct HomeView: View {
                         .foregroundStyle(.ultraThinMaterial)
                 }
                 Spacer()
-                Spacer()
+                Button{
+                    withAnimation{
+                        isRandomLevel.toggle()
+                    }
+                } label:{
+                    VStack{
+                        Circle()
+                            .frame(minWidth: 50, idealWidth: 75, maxWidth: 80, minHeight: 50, idealHeight: 75, maxHeight: 80)
+                            .overlay{
+                                Image(systemName: "play.circle")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 45))
+                                    .fontWeight(.semibold)
+                            }
+                            .shadow(radius: 5)
+                            .foregroundStyle(.ultraThinMaterial)
+                        Text(NSLocalizedString("EndlessMode", comment: "")).foregroundColor(.white).font(.headline).lineLimit(nil)
+                    }.frame(width: screenWidth/3-10)
+                }
                 HStack(alignment: .top){
                     Button{
                         withAnimation{
@@ -84,26 +103,27 @@ struct HomeView: View {
                     Spacer()
                     Button{
                         withAnimation{
-                            isRandomLevel.toggle()
+                            isSettings.toggle()
                         }
                     } label:{
                         VStack{
                             Circle()
                                 .frame(minWidth: 50, idealWidth: 75, maxWidth: 80, minHeight: 50, idealHeight: 75, maxHeight: 80)
                                 .overlay{
-                                    Image(systemName: "play.circle")
+                                    Image(systemName: "gear")
                                         .foregroundColor(.white)
                                         .font(.system(size: 45))
                                         .fontWeight(.semibold)
                                 }
                                 .shadow(radius: 5)
                                 .foregroundStyle(.ultraThinMaterial)
-                            Text(NSLocalizedString("EndlessMode", comment: "")).foregroundColor(.white).font(.headline).lineLimit(nil)
+                            Text(NSLocalizedString("Settings", comment: "")).foregroundColor(.white).font(.headline).lineLimit(nil)
                         }.frame(width: screenWidth/3-10)
                     }
                     
                 }
             }
+            
             if isGameScreen{
                 SceneBuilder2(mode: 1)
                     .transition(.opacity)
@@ -121,6 +141,15 @@ struct HomeView: View {
                     .transition(.opacity)
             }
         }//ZStack
+        .overlay{
+            Group{
+                if isSettings {
+                    SettingsView(isClose: $isSettings)
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: isSettings) // Анімація на рівні переходу
+                }
+            }
+        }
     }
 }
 

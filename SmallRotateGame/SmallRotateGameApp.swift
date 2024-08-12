@@ -6,15 +6,70 @@
 //
 
 import SwiftUI
+import AVFoundation
+
+class AudioManager: ObservableObject {
+    private var audioPlayer: AVAudioPlayer?
+
+    @Published var isPlaying = false
+
+    init() {
+        configureAudioSession()
+        playMusic()
+    }
+    
+    private func configureAudioSession() {
+        do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playback, mode: .default, options: [.mixWithOthers, .duckOthers])
+            try audioSession.setActive(true)
+        } catch {
+            print("Failed to set up audio session: \(error)")
+        }
+    }
+    
+    private func playMusic() {
+        guard let url = Bundle.main.url(forResource: "EndlessLoop", withExtension: "mp3") else {
+            print("Audio file not found")
+            return
+        }
+
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.numberOfLoops = -1 // Play indefinitely
+            audioPlayer?.play()
+            isPlaying = true
+        } catch {
+            print("Failed to initialize audio player: \(error)")
+        }
+    }
+
+    func togglePlayPause() {
+        guard let player = audioPlayer else { return }
+        
+        if player.isPlaying {
+            player.pause()
+            isPlaying = false
+        } else {
+            player.play()
+            isPlaying = true
+        }
+    }
+}
+
+
 
 @main
 struct SmallRotateGameApp: App {
+    @StateObject private var audioManager = AudioManager()
+
     var body: some Scene {
         WindowGroup {
             HomeView()
                 .onAppear{
                     checkFirstLaunch()
                 }
+                .environmentObject(audioManager)
         }
         
     }
@@ -76,5 +131,4 @@ func triggerNotificationFeedback(mode: HapticTypes){
     case .error:
         impactGenerator.notificationOccurred(.error)
     }
-    
 }

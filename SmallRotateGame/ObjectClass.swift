@@ -67,26 +67,7 @@ class LineObject: ObservableObject {
         }
     }
     
-//    func changeSVGColor(assetName: String, color: UIColor) {
-//        // Завантаження SVG з assets
-//        if let url = Bundle.main.url(forResource: assetName, withExtension: "svg") {// Створення UIView для відображення SVG
-//            let svgView = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//            
-//            // Зміна кольору та рендеринг SVG
-//            let svgLayer = CALayer(svgURL: url) { layer in
-//                layer.fillColor = color.cgColor
-//            }
-//            svgView.layer.addSublayer(svgLayer)
-//            svgLayer.frame = svgView.bounds
-//            
-//            self.UIPicture = svgView
-//        }
-//        else {
-//            print("Не вдалося знайти SVG файл з назвою \(assetName) у assets")
-//        }
 
-        
-//    }
 }
 
 struct LineObj: View {
@@ -100,8 +81,10 @@ struct LineObj: View {
 
     var body: some View {
         Button(action: {
-            triggerHapticFeedback() // Виклик тактильного зворотного зв'язку
-            AudioServicesPlaySystemSound(1126)
+            if viewModel.number != 0 {
+                triggerHapticFeedback() // Виклик тактильного зворотного зв'язку
+                AudioServicesPlaySystemSound(1126)
+            }
             viewModel.rotate {
                 onTap?()
             }
