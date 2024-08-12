@@ -88,6 +88,23 @@
         }
       }
     },
+    "CountTaps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taps count"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кількість тиців"
+          }
+        }
+      }
+    },
     "CreateLevel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -378,9 +395,6 @@
           }
         }
       }
-    },
-    "StartAgaing" : {
-
     },
     "StartPoint" : {
       "comment" : "element with 1 end",

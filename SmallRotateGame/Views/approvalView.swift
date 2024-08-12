@@ -16,7 +16,7 @@ struct approvalView: View {
                     let picture = isApproved ? "checkmark" : "xmark"
                     let color = isApproved ? Color.green : Color.red
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(color.opacity(0.1))
+                        .foregroundStyle(color.opacity(0.2))
                         .shadow(radius: 10)
                         .frame(width: 125, height: 125)
                         .aspectRatio(1, contentMode: .fit)

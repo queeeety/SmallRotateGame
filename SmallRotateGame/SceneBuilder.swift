@@ -74,6 +74,7 @@ struct SceneBuilder: View {
                     IsButtonNextLevel = false
                 }
             }
+            .sensoryFeedback(.success, trigger: IsButtonNextLevel)
         } // if statement
         else {
             HomeView()

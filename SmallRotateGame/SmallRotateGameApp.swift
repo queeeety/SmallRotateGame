@@ -55,3 +55,26 @@ extension AnyTransition {
         AnyTransition.move(edge: .trailing)
     }
 }
+
+// Функція для створення тактильного зворотного зв'язку
+func triggerHapticFeedback() {
+    let impactGenerator = UIImpactFeedbackGenerator(style: .medium)
+    impactGenerator.impactOccurred()
+    
+}
+
+enum HapticTypes{
+    case success
+    case error
+}
+
+func triggerNotificationFeedback(mode: HapticTypes){
+    let impactGenerator = UINotificationFeedbackGenerator()
+    switch mode {
+    case .success:
+        impactGenerator.notificationOccurred(.success)
+    case .error:
+        impactGenerator.notificationOccurred(.error)
+    }
+    
+}

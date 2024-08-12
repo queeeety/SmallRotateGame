@@ -25,6 +25,7 @@ struct SceneBuilder2: View {
     @State var isHomeScreen : Bool = false
     @State var IsButtonNextLevel : Bool = false
     @State var difficulty: Int
+    @State var countTaps : Int = 0
     
     let screenWidth = Int(UIScreen.main.bounds.width - 20)
     
@@ -62,10 +63,13 @@ struct SceneBuilder2: View {
                                     ForEach(elementsMap[i].indices, id: \.self) { j in
                                         LineObj(viewModel: elementsMap[i][j]) {
                                             if !isProcessing {
+                                                countTaps += 1
                                                 checkCompleteness()
+                                                
                                             }
                                         }
                                         .aspectRatio(1, contentMode: .fit)
+//                                        .sensoryFeedback(.increase, trigger: countTaps)
                                     }
                                 }
                             }
@@ -83,7 +87,7 @@ struct SceneBuilder2: View {
                     HStack(alignment: .bottom){
                         VStack(alignment: .leading){
                             Spacer()
-                            Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor)
+                            Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor, tapCount: $countTaps)
                         }
                         Spacer()
                         
@@ -95,8 +99,11 @@ struct SceneBuilder2: View {
                         .font(.system(size: 150))
                         .foregroundColor(.white)
                         .transition(.opacity)
+
                 }
             }
+            
+
             .alert(NSLocalizedString("Greetings", comment:""), isPresented: $isAlert) {
                 Button(NSLocalizedString("StartAgain", comment:""), role: .cancel) {
                     isNextLevel = false
@@ -115,11 +122,13 @@ struct SceneBuilder2: View {
                     IsButtonNextLevel = false
                 }
             }
+            
         } // if statement
         else {
             HomeView()
                 .transition(.opacity)
         }
+
     }
     
     func uploadMap(){
@@ -150,14 +159,16 @@ struct SceneBuilder2: View {
         
         let isComplete = performCheckCompleteness(elements: elementsMap)
         self.isCorrect = isComplete
-        withAnimation {
-            self.bgcolor = isComplete ? colorTrue : colorFalse
-        }
         
         if isComplete {
+            withAnimation{
+                self.bgcolor = colorTrue
+            }
+            triggerNotificationFeedback(mode: .success)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     isNextLevel = isComplete
+                    countTaps = 0
                 }
                 if mode == 1 || mode == 2 {
                     if ((mode == 1 ? preLoadedLevels : CreatedLevels).count > currentLevel) {
@@ -167,6 +178,7 @@ struct SceneBuilder2: View {
                         self.elementsMap = generateElementsMap()
                     } else {
                         isAlert = true
+                        triggerNotificationFeedback(mode: .error)
                     }
                 }
                 else{
@@ -191,6 +203,7 @@ struct SceneBuilder2: View {
     func manualTransitionToTheNextLevel(){
         withAnimation {
             isNextLevel = true
+            countTaps = 0
         }
         if (mode == 1 || mode == 2){
             if ((mode == 1 ? preLoadedLevels : CreatedLevels).count > currentLevel) {
@@ -200,6 +213,7 @@ struct SceneBuilder2: View {
                 self.elementsMap = generateElementsMap()
             } else {
                 isAlert = true
+                triggerNotificationFeedback(mode: .error)
             }
         }
         else {

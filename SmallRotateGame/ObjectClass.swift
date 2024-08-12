@@ -99,6 +99,7 @@ struct LineObj: View {
 
     var body: some View {
         Button(action: {
+            triggerHapticFeedback() // Виклик тактильного зворотного зв'язку
             viewModel.rotate {
                 onTap?()
             }
@@ -107,9 +108,10 @@ struct LineObj: View {
                 .resizable()
                 .rotationEffect(viewModel.angle)
                 .foregroundColor(viewModel.fgcolor)
-            
         }
     }
+
+
 }
 
 

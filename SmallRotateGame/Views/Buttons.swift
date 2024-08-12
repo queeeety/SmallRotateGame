@@ -11,6 +11,7 @@ struct Buttons: View {
     @Binding var isHome : Bool
     @Binding var isNextLevel : Bool
     @Binding var iconsColor : Color
+    @Binding var tapCount : Int
     @State var MainButtonImage = "gear"
     @State var isMainButtonPressed = false
     
@@ -50,6 +51,7 @@ struct Buttons: View {
                         withAnimation(.easeInOut(duration: 0.5)) {
                             isMainButtonPressed.toggle()
                             MainButtonImage = isMainButtonPressed ? "xmark" : "gear"
+                            triggerHapticFeedback()
                         }
                     }label: {
                         Circle()
@@ -84,19 +86,40 @@ struct Buttons: View {
                                 }
                             
                         }.transition(.move(edge: .leading).combined(with: .opacity))
-
+                        Spacer()
                         // exit
-                    } //third button
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 40)
+                                .foregroundStyle(.ultraThinMaterial)
+                                .frame(width: screenWidth * 0.40, height: screenWidth * 0.18)
+                                .opacity(0.8)
+                                .shadow(radius: 5)
+                                .overlay{
+                                    VStack{
+                                        Text(NSLocalizedString("CountTaps", comment: ""))
+                                            .lineLimit(.max)
+                                            .foregroundStyle(Color.white)
+                                            .bold()
+                                        Text("\(tapCount)")
+                                            .foregroundStyle(Color.white)
+                                            .bold()
+                                    }
+                                }
+                        }.transition(.move(edge: .leading).combined(with: .opacity))
+                        
+                    } //second button
+                    
                 }//HStack
             }
         }
-        .frame(width: screenWidth/2, height: screenWidth/2)
+        .frame(width: screenWidth-20, height: screenWidth/2)
     }
 }
 
 #Preview {
-    @State var isHomeScreen = false
-    @State var IsButtonNextLevel = false
-    @State var bgcolor = Color.red
+    @Previewable @State var isHomeScreen = false
+    @Previewable @State var IsButtonNextLevel = false
+    @Previewable @State var bgcolor = Color.red
+    @Previewable @State var taps = 0
     
-    Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor)}
+    Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor, tapCount: $taps)}

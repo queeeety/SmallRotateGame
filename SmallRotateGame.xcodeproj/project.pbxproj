@@ -28,6 +28,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
+				SceneBuilder.swift,
 			);
 			target = C926E83F2C56BC7000C14176 /* SmallRotateGame */;
 		};
