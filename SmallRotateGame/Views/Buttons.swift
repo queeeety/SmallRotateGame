@@ -68,6 +68,7 @@ struct Buttons: View {
                     } // MainButton
                     Spacer()
                     if isMainButtonPressed{
+                        
                         Button{
                             isNextLevel = true
                         } label: {
@@ -86,14 +87,12 @@ struct Buttons: View {
                                 }
                             
                         }.transition(.move(edge: .leading).combined(with: .opacity))
-                        Spacer()
                         // exit
                         ZStack{
                             RoundedRectangle(cornerRadius: 40)
                                 .foregroundStyle(.ultraThinMaterial)
                                 .frame(width: screenWidth * 0.40, height: screenWidth * 0.18)
                                 .opacity(0.8)
-                                .shadow(radius: 5)
                                 .overlay{
                                     VStack{
                                         Text(NSLocalizedString("CountTaps", comment: ""))

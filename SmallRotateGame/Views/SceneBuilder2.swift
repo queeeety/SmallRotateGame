@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct SceneBuilder2: View {
     
@@ -14,9 +15,9 @@ struct SceneBuilder2: View {
     
     @State private var elementsMap: [[LineObject]] = []
     
-    @State var colorFalse = Color.red
-    @State var colorTrue = Color.green
-    @State var bgcolor = Color.red
+    @State var colorFalse = Color.indigo
+    @State var colorTrue = Color.purple
+    @State var bgcolor = Color.indigo
     @State var currentLevel : Int!
     @State var isCorrect = false
     @State var isNextLevel: Bool = false
@@ -45,6 +46,9 @@ struct SceneBuilder2: View {
                         if mode != 3 {
                             saveCurrentNumber(currentLevel-1, mode: mode)
                         }
+                    }
+                    .onAppear{
+                        AudioServicesPlaySystemSound(1129)
                     }
                 
                 if !isNextLevel {
@@ -163,6 +167,7 @@ struct SceneBuilder2: View {
         if isComplete {
             withAnimation{
                 self.bgcolor = colorTrue
+                AudioServicesPlaySystemSound(1128)
             }
             triggerNotificationFeedback(mode: .success)
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -231,5 +236,5 @@ struct SceneBuilder2: View {
 }
 
 #Preview {
-    SceneBuilder2(mode: 3, difficulty: 5)
+    SceneBuilder2(mode: 3, difficulty: 1)
 }

@@ -31,9 +31,10 @@ struct LevelsView: View {
                 .transition(.opacity)
         } else if isCustomLevel {
             SceneBuilder2(mode: 2)
+                .transition(.opacity)
         } else {
             ZStack {
-                RadialGradient(colors: [.purple, .indigo], center: .top, startRadius: 10, endRadius: 500)
+                LinearGradient(colors: [.purple,.indigo,.indigo], startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 VStack {
                     if isRegularLevels {
@@ -225,7 +226,7 @@ struct LevelsView: View {
                 
                 if isHomeScreen {
                     HomeView()
-                        .transition(.move(edge: .leading))
+                        .transition(.move(edge: .trailing))
                             .animation(.smooth, value: isRegularLevels)
                 }
             }

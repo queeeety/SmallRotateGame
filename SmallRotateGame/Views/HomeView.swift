@@ -15,7 +15,7 @@ struct HomeView: View {
     let screenWidth = UIScreen.main.bounds.width
     var body: some View {
         ZStack{
-            RadialGradient(colors: [.purple,.indigo], center: .top, startRadius: 10, endRadius: 500)
+            LinearGradient(colors: [.purple,.indigo,.indigo], startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             VStack{
                 Spacer()
@@ -110,7 +110,7 @@ struct HomeView: View {
             }
             else if isLevelsScreen {
                 LevelsView()
-                    .transition(.opacity)
+                    .transition(.move(edge: .leading))
             }
             else if isCreateLevelScreen {
                 BuildYourLevel()

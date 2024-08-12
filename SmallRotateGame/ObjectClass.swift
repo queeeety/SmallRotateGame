@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import SwiftSVG
+import AVFoundation
 
 class LineObject: ObservableObject {
     @Published var directions: [String] = []
@@ -100,6 +101,7 @@ struct LineObj: View {
     var body: some View {
         Button(action: {
             triggerHapticFeedback() // Виклик тактильного зворотного зв'язку
+            AudioServicesPlaySystemSound(1126)
             viewModel.rotate {
                 onTap?()
             }
