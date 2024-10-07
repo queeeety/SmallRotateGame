@@ -32,40 +32,39 @@ This project was created as a pet project to showcase skills in game development
 
 ### 1. Main Menu
    The central hub of the game, allowing players to start a new game, view their scores, and access settings.
-
-   <img alt="Main Menu Screenshot" height="609,3333333333" src="ReadmePics/MainScreen.png" width="320,6666666667"/>
+   <img alt="Main Menu Screenshot" height="304,6666666667" src="ReadmePics/MainScreen.png" width="160,3333333333"/>
 
 ### 2. Gameplay View
    The primary view where players interact with rotating objects and try to align them within the given constraints.
 
-   <img alt="Gameplay View Screenshot" height="426" src="ReadmePics/Gameplay.gif" height="196,5"/>
+   <img alt="Gameplay View Screenshot" height="426" src="ReadmePics/Gameplay.gif" width="196,5"/>
 
 ### 3. Level's Map View
    The level map view allows players to select a level to play from a grid of available levels.
    
    <img alt="Level&#39;s Map View Screenshot" height="426" src="ReadmePics/standartLevels.jpeg" width="196,5"/>
-   <img alt="Player-made level&#39;s Map View Screenshot" height="426" src="ReadmePics/CreatedLevels.jpeg" height="196,5"/>
+   <img alt="Player-made level&#39;s Map View Screenshot" height="426" src="ReadmePics/CreatedLevels.jpeg" width="196,5"/>
 
 ### 4. Level Complete Screen
    Displays the player’s score and options to move to the next level or replay the current one.
    
-   <img alt="Level Complete Screenshot" height="426" src="ReadmePics/levelCompleted.jpeg" height="196,5"/>
+   <img alt="Level Complete Screenshot" height="426" src="ReadmePics/levelCompleted.jpeg" width="196,5"/>
 
 ### 5. Settings View
    Allows players to adjust game settings such as sound, difficulty, and controls.
    
-   <img alt="Settings View Screenshot" height="426" src="ReadmePics/SettingsView.png" height="196,5"/>
+   <img alt="Settings View Screenshot" height="426" src="ReadmePics/SettingsView.png" width="196,5"/>
 
 ### 6. Level Editor
    A tool that allows players to create their own levels by placing objects and defining target shapes.
    
-   <img alt="Level Editor Screenshot" height="426" src="ReadmePics/LevelCreating.gif" height="196,5"/>
+   <img alt="Level Editor Screenshot" height="426" src="ReadmePics/LevelCreating.gif" width="196,5"/>
 
 ### 7. Infinite Game
    The game mode where the player can play levels infinitely. The levels are generated randomly. The difficulty can be chosen by the player.
    
-   <img alt="Difficulty Screenshot" height="426" src="ReadmePics/difficultyChoiсe.PNG" height="196,5"/>
-   <img src="ReadmePics/HardLevel.PNG" alt="Infinite Game Screenshot" height="426" height="196,5">
+   <img alt="Difficulty Screenshot" height="426" src="ReadmePics/difficultyChoiсe.PNG" width="196,5"/>
+   <img src="ReadmePics/HardLevel.PNG" alt="Infinite Game Screenshot" width="196,5" height="426">
 
 
 ## How to Play
