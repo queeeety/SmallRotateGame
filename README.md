@@ -37,7 +37,7 @@ This project was created as a pet project to showcase skills in game development
 ### 2. Gameplay View
    The primary view where players interact with rotating objects and try to align them within the given constraints.
 
-   <img alt="Gameplay View Screenshot" height="426" src="ReadmePics/Gameplay.gif" width="196,5"/>
+   <img alt="Gameplay View Screenshot" src="ReadmePics/Gameplay.gif" style="max-width: 60%; height: auto;">
 
 ### 3. Level's Map View
    The level map view allows players to select a level to play from a grid of available levels.
@@ -58,7 +58,7 @@ This project was created as a pet project to showcase skills in game development
 ### 6. Level Editor
    A tool that allows players to create their own levels by placing objects and defining target shapes.
    
-   <img alt="Level Editor Screenshot" height="426" src="ReadmePics/LevelCreating.gif" width="196,5"/>
+   <img alt="Level Editor Screenshot" src="ReadmePics/LevelCreating.gif" style="max-width: 60%; height: auto;">
 
 ### 7. Infinite Game
    The game mode where the player can play levels infinitely. The levels are generated randomly. The difficulty can be chosen by the player.
