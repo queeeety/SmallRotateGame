@@ -14,9 +14,11 @@ struct BuildYourLevel: View {
     @State var isCorrect = false
     @State var changePoint = [Int]()
     @State var isButtonPushed = false
-    @State var isMainLevel = false
+    @Binding var isActive : Bool
     @State var isStatus = false
     @State var savingStatus = false
+    
+    @State var translation: CGSize = .zero
     let screenWidth = Int(UIScreen.main.bounds.width-20)
     var body: some View {
         ZStack {
@@ -26,7 +28,7 @@ struct BuildYourLevel: View {
                 HStack{
                     Button{
                         withAnimation{
-                            isMainLevel.toggle()
+                            isActive = false
                         }
                     }label:{
                         Image(systemName: "chevron.backward")
@@ -221,10 +223,11 @@ struct BuildYourLevel: View {
                 .disabled(!isCorrect)
             }//VStack
             
-            if isMainLevel{
-                HomeView()
-                    .transition(.slide)
-            }
+//            if !isActive{
+//                HomeView()
+//                    .transition(.move(edge: .leading))
+//            }
+            
             if isStatus {
                 withAnimation{
                     
@@ -236,7 +239,7 @@ struct BuildYourLevel: View {
                     .animation(.easeInOut, value: savingStatus)
                 }
             }
-        } // ZStack
+        }
     }
     
     func generateElementsMap() -> [[LineObject]] {
@@ -284,7 +287,7 @@ struct SingleButton: View {
 }
 
 #Preview{
-    BuildYourLevel()
+    BuildYourLevel(isActive: .constant(true))
 }
 
 

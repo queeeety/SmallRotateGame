@@ -12,18 +12,18 @@ struct Buttons: View {
     @Binding var isNextLevel : Bool
     @Binding var iconsColor : Color
     @Binding var tapCount : Int
-    @State var MainButtonImage = "gear"
     @State var isMainButtonPressed = false
+    @Binding var isSettingsView : Bool
     
     let screenWidth = UIScreen.main.bounds.width
     var body: some View {
         ZStack{
-            VStack{
-                HStack{
+            VStack(alignment: .leading){
+                HStack(alignment:.bottom, spacing: 25){
                     if isMainButtonPressed {
                         Button(action: {
                             withAnimation{
-                                isHome = true
+                                isHome.toggle()
                             }
                         }) {
                             Circle()
@@ -34,39 +34,72 @@ struct Buttons: View {
                                 .overlay {
                                     Image(systemName: "house.fill")
                                         .resizable()
+                                        .foregroundStyle(iconsColor)
+                                        .bold()
+                                        .padding()
+
+                                    
+                                }
+                        }
+//                        .padding([.leading, .trailing], screenWidth*0.005)
+
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        // home button
+                        Button(action: {
+                            withAnimation{
+                                isSettingsView.toggle()
+                                isMainButtonPressed.toggle()
+                            }
+                        }) {
+                            Circle()
+                                .foregroundStyle(.ultraThinMaterial)
+                                .frame(width: screenWidth * 0.18, height: screenWidth * 0.18)
+                                .opacity(0.8)
+                                .shadow(radius: 5)
+                                .overlay {
+                                    Image(systemName: "gear")
+                                        .resizable()
                                         .padding()
                                         .foregroundStyle(iconsColor)
                                         .bold()
-
+                                    
                                 }
-                        }
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                    } //first button
+                        }// settings
+                        .transition(
+                            .asymmetric(
+                                insertion: .move(edge: .leading)
+                                    .combined(with: .move(edge: .bottom)).combined(with: .opacity),
+                                removal: .move(edge: .leading)
+                                    .combined(with: .move(edge: .bottom)).combined(with: .opacity)
+                            )
+                        )
+
+                    }
                     
                     Spacer()
                 }
                 Spacer()
-                HStack(alignment: .bottom){
+                HStack(alignment: .bottom, spacing: 25){
                     Button{
                         withAnimation(.easeInOut(duration: 0.5)) {
                             isMainButtonPressed.toggle()
-                            MainButtonImage = isMainButtonPressed ? "xmark" : "gear"
                             triggerHapticFeedback()
                         }
                     }label: {
                         Circle()
                             .foregroundStyle(.ultraThinMaterial)
-                            .frame(width: screenWidth * 0.2, height: screenWidth * 0.2)
+                            .frame(width:
+                                    isMainButtonPressed ? screenWidth * 0.18: screenWidth * 0.2, height: isMainButtonPressed ? screenWidth * 0.18: screenWidth * 0.2)
                             .shadow(radius: 5)
                             .overlay {
-                                Image(systemName: MainButtonImage)
+                                Image(systemName: "circle.circle")
                                     .resizable()
                                     .padding()
                                     .foregroundStyle(iconsColor)
-                                    .rotationEffect(.degrees(isMainButtonPressed ? 180 : 0))
+                                    .scaleEffect(isMainButtonPressed ? 1.1 : 1)
                             }
                     } // MainButton
-                    Spacer()
+                    
                     if isMainButtonPressed{
                         
                         Button{
@@ -107,11 +140,15 @@ struct Buttons: View {
                         }.transition(.move(edge: .leading).combined(with: .opacity))
                         
                     } //second button
+                    else {
+                        Spacer()
+                    }
                     
                 }//HStack
             }
         }
-        .frame(width: screenWidth-20, height: screenWidth/2)
+        .frame(width: screenWidth-40, height: screenWidth/2)
+        .padding([.leading, .trailing], 10)
     }
 }
 
@@ -121,4 +158,4 @@ struct Buttons: View {
     @Previewable @State var bgcolor = Color.red
     @Previewable @State var taps = 0
     
-    Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor, tapCount: $taps)}
+    Buttons(isHome: $isHomeScreen, isNextLevel: $IsButtonNextLevel, iconsColor: $bgcolor, tapCount: $taps, isSettingsView: .constant(true))}

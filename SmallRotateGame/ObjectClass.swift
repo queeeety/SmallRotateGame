@@ -83,7 +83,10 @@ struct LineObj: View {
         Button(action: {
             if viewModel.number != 0 {
                 triggerHapticFeedback() // Виклик тактильного зворотного зв'язку
-                AudioServicesPlaySystemSound(1126)
+                if UserDefaults.standard.bool(forKey: "MusicEffects"){
+                    
+                    AudioServicesPlaySystemSound(1126)
+                }
             }
             viewModel.rotate {
                 onTap?()

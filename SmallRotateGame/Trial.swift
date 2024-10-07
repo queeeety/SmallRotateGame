@@ -6,23 +6,51 @@
 //
 
 import SwiftUI
-import AVFoundation
 
 struct Trial: View {
+    @State private var musicVolume: Double = 0.5
+    @State private var isEditing: Bool = false
+
+    var volumeImageName: String {
+        switch musicVolume {
+        case 0:
+            return "speaker.slash.fill"
+        case 0..<0.3:
+            return "speaker.wave.1.fill"
+        case 0.3..<0.7:
+            return "speaker.wave.2.fill"
+        default:
+            return "speaker.wave.3.fill"
+        }
+    }
+
     var body: some View {
-        List{
-            ForEach(1000...1335, id: \.self){ number in
-                Button("\(number)"){
-                    AudioServicesPlaySystemSound(SystemSoundID(number))
+        HStack {
+            Slider(value: $musicVolume, in: 0...1, step: 0.1, onEditingChanged: { editing in
+                withAnimation {
+                    isEditing = editing
                 }
-                    
+            })
+            .accentColor(.purple)
+            .frame(width: 200) // Задайте фіксовану ширину для основи слайдера
+
+            ZStack {
+
+                
+                // Анімоване зображення на основі значення слайдера
+                Image(systemName: volumeImageName)
+                    .resizable()
+                    .foregroundStyle(isEditing ? .purple : .white)
+                    .scaledToFit()
+//                    .frame(width: 40, height: 80)
+                    .padding(5)
+                    .transition(.opacity) // Анімація зміни іконки
+                    .animation(.easeInOut(duration: 0.3), value: musicVolume) // Анімація при зміні значення
             }
         }
     }
 }
 
-#Preview {
+#Preview{
     Trial()
 }
-
-//1104 

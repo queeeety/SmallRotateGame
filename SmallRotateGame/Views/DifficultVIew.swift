@@ -1,11 +1,12 @@
 import SwiftUI
 
 struct DifficultView: View {
-    
-    @State var isGame = false
-    @State var isHome = false
+
     @State var buttonStatus = [false, false, false, false, false]
     @State var whatButtonPressed: Int = 0
+    
+    @Binding var isActive : Bool
+    @Binding var isGame : Bool
     let screenWidth = UIScreen.main.bounds.width
     let pictures = ["questionmark", "moon", "figure", "bolt.heart.fill", "crown.fill", "trophy"] // Переконайтесь, що тут вказані правильні назви іконок
 
@@ -16,13 +17,24 @@ struct DifficultView: View {
             
             VStack {
                 Spacer()
-                Text(NSLocalizedString("ChooseDiff", comment:""))
-                    .font(.largeTitle)
-                    .foregroundStyle(.white)
-                    .fontWeight(.bold)
-                
+                HStack{
+                    Button{
+                        withAnimation{
+                            isActive = false
+                        }
+                    }label:{
+                        Image(systemName: "chevron.backward")
+                            .font(.title)
+                            .foregroundStyle(.white)
+                            .bold()
+                            .shadow(radius: 5)
+                    }
+                    Text(NSLocalizedString("ChooseDiff", comment:""))
+                        .font(.largeTitle)
+                        .foregroundStyle(.white)
+                        .fontWeight(.bold)
+                }
                 Spacer()
-                // Переконайтесь, що `whatButtonPressed` не виходить за межі індексів масиву `pictures`
                 Image(systemName: pictures[whatButtonPressed])
                     .font(.largeTitle)
                     .foregroundStyle(.white)
@@ -76,28 +88,30 @@ struct DifficultView: View {
                         RoundedRectangle(cornerRadius: 40)
                             .foregroundStyle(RadialGradient(colors: whatButtonPressed != 0 ? [.purple] : [.purple.opacity(0.4)], center: .center, startRadius: 0, endRadius: 800))
                             .frame(width: .infinity, height: 100)
-                    Text(NSLocalizedString("Play", comment:""))
+                        Text(NSLocalizedString("Play", comment:""))
                             .font(.system(size: 40, weight: .bold, design: .default))
                             .foregroundColor((whatButtonPressed != 0) ? .white : .purple)
                     }
                 }.padding([.leading, .trailing, .bottom], 5)
             }
+            .onChange(of: isGame)
+            {
+                isActive = !isActive ? false : isActive
+            }
             
             if isGame {
-                SceneBuilder2(mode: 3, difficulty: whatButtonPressed)
+                SceneBuilder2(mode: 3, difficulty: whatButtonPressed, isActive: $isGame)
                     .transition(.opacity)
             }
+
             
-            if isHome {
-                HomeView()
-                    .transition(.move(edge: .trailing))
-            }
+            
         }
     }
 }
 
 #Preview {
-    DifficultView()
+    DifficultView(isActive: .constant(true), isGame: .constant(true))
 }
 
 struct DifficultyButtonsLabel: View {
