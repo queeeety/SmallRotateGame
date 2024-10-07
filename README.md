@@ -32,35 +32,34 @@ This project was created as a pet project to showcase skills in game development
 
 ### 1. Main Menu
    The central hub of the game, allowing players to start a new game, view their scores, and access settings.
-   ![Main Menu Screenshot](ReadmePics/MainScreen.png)
+   <img alt="Main Menu Screenshot" height="852" src="ReadmePics/MainScreen.png" width="393"/>
 
 ### 2. Gameplay View
    The primary view where players interact with rotating objects and try to align them within the given constraints.
-   
-   ![Gameplay View Screenshot](ReadmePics/Gameplay.gif)
+
+<img alt="Gameplay View Screenshot" height="852" src="ReadmePics/Gameplay.gif" width="393"/>
 
 ### 3. Level's Map View
    The level map view allows players to select a level to play from a grid of available levels.
-   ![Level's Map View Screenshot](ReadmePics/standartLevels.jpeg)
-   ![Player-made level's Map View Screenshot](ReadmePics/CreatedLevels.jpeg)
+   <img alt="Level&#39;s Map View Screenshot" height="852" src="ReadmePics/standartLevels.jpeg" width="393"/>
+   <img alt="Player-made level&#39;s Map View Screenshot" height="852" src="ReadmePics/CreatedLevels.jpeg" width="393"/>
 
 ### 4. Level Complete Screen
    Displays the player’s score and options to move to the next level or replay the current one.
-   ![Level Complete Screenshot](ReadmePics/levelCompleted.jpeg)
+   <img alt="Level Complete Screenshot" height="852" src="ReadmePics/levelCompleted.jpeg" width="393"/>
 
 ### 5. Settings View
    Allows players to adjust game settings such as sound, difficulty, and controls.
-   ![Settings View Screenshot](ReadmePics/SettingsView.png)
+   <img alt="Settings View Screenshot" height="852" src="ReadmePics/SettingsView.png" width="393"/>
 
 ### 6. Level Editor
    A tool that allows players to create their own levels by placing objects and defining target shapes.
-   ![Level Editor Screenshot](ReadmePics/LevelCreating.gif)
+   <img alt="Level Editor Screenshot" height="852" src="ReadmePics/LevelCreating.gif" width="393"/>
 
 ### 7. Infinite Game
    The game mode where the player can play levels infinitely. The levels are generated randomly. The difficulty can be chosen by the player.
-   ![Difficulty Screenshot](ReadmePics/difficultyChoiсe.PNG)
-   ![Infinite Game Screenshot](ReadmePics/HardLevel.PNG)
-
+   <img alt="Difficulty Screenshot" height="852" src="ReadmePics/difficultyChoiсe.PNG" width="393"/>
+<img src="ReadmePics/HardLevel.PNG" alt="Infinite Game Screenshot" width="393" height="852">
 
 
 ## How to Play
