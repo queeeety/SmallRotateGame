@@ -10,6 +10,7 @@
 		C900C2592C643A72008C0322 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C900C2582C643A72008C0322 /* Localizable.xcstrings */; };
 		C912640F2C59A4320082BDF8 /* levels.csv in Resources */ = {isa = PBXBuildFile; fileRef = C912640D2C59A4270082BDF8 /* levels.csv */; };
 		C926E85E2C57CE7300C14176 /* SwiftSVG in Frameworks */ = {isa = PBXBuildFile; productRef = C926E85D2C57CE7300C14176 /* SwiftSVG */; };
+		C9316BAE2CB47EF3001C97D6 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = C9316BAD2CB47EF3001C97D6 /* LICENSE.txt */; };
 		C960F3C12C59A13B009A628A /* SwiftCSV in Frameworks */ = {isa = PBXBuildFile; productRef = C960F3C02C59A13B009A628A /* SwiftCSV */; };
 		C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5CD2C5AB12B00B97AEF /* levels.json */; };
 		C9E7B5D62C5ACB7400B97AEF /* CurrentLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */; };
@@ -30,6 +31,7 @@
 		C900C2582C643A72008C0322 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		C912640D2C59A4270082BDF8 /* levels.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = levels.csv; sourceTree = "<group>"; };
 		C926E8402C56BC7000C14176 /* SmallRotateGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmallRotateGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9316BAD2CB47EF3001C97D6 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		C9BD96222C77F2C3000DAE70 /* SmallRotateGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmallRotateGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9E7B5CD2C5AB12B00B97AEF /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = levels.json; path = ../../../../../../../../../Users/tim_bzz/Documents/projects/xcode/SmallRotateGame/levels.json; sourceTree = SDKROOT; };
 		C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = CurrentLevel.json; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		C926E8372C56BC7000C14176 = {
 			isa = PBXGroup;
 			children = (
+				C9316BAD2CB47EF3001C97D6 /* LICENSE.txt */,
 				C9E7B5CD2C5AB12B00B97AEF /* levels.json */,
 				C900C2582C643A72008C0322 /* Localizable.xcstrings */,
 				C9E7B5D52C5ACB6900B97AEF /* CurrentLevel.json */,
@@ -199,6 +202,7 @@
 				C9E7B5D62C5ACB7400B97AEF /* CurrentLevel.json in Resources */,
 				C9E7B5D12C5AB64800B97AEF /* levels.json in Resources */,
 				C900C2592C643A72008C0322 /* Localizable.xcstrings in Resources */,
+				C9316BAE2CB47EF3001C97D6 /* LICENSE.txt in Resources */,
 				C9F143352CB3E11C00521037 /* README.md in Resources */,
 				C912640F2C59A4320082BDF8 /* levels.csv in Resources */,
 			);
