@@ -53,7 +53,7 @@ This project was created as a pet project to showcase skills in game development
 ### 5. Settings View
    Allows players to adjust game settings such as sound, difficulty, and controls.
    
-   <img alt="Settings View Screenshot" height="426" src="ReadmePics/SettingsView.png" width="196,5"/>
+   <img alt="Settings View Screenshot" height="426" src="ReadmePics/SettingsView.PNG" width="196,5"/>
 
 ### 6. Level Editor
    A tool that allows players to create their own levels by placing objects and defining target shapes.
