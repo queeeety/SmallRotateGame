@@ -32,7 +32,7 @@ This project was created as a pet project to showcase skills in game development
 
 ### 1. Main Menu
    The central hub of the game, allowing players to start a new game, view their scores, and access settings.
-   <img alt="Main Menu Screenshot" height="852" src="ReadmePics/MainScreen.png" width="393"/>
+   <img alt="Main Menu Screenshot" height="609,3333333333" src="ReadmePics/MainScreen.png" width="320,6666666667"/>
 
 ### 2. Gameplay View
    The primary view where players interact with rotating objects and try to align them within the given constraints.
